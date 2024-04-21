@@ -18,11 +18,11 @@ CLIUniApp is a university management system that provides a command-line interfa
 
 ## Installation
 
-CLIUniApp requires Python 3.7 or higher. Follow these steps to install:
+CLIUniApp requires Python 3.12 or higher. Follow these steps to install:
 
 1. Clone the project:
    ```bash
-   git clone https://your-repository-url.com 
+   git clone https://github.com/JinLee0811/FSD_Team_PJ_2024 
 
 2. Install the required libraries:
     ```pip install -r requirements.txt

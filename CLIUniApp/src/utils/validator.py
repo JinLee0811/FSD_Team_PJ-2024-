@@ -1,0 +1,18 @@
+# src/utils/validators.py
+import re
+
+
+def validate_email(email):
+    # Email regex should ensure that the dot ( . ), the (@ ) and the ( university.com ) are present
+    pattern = re.compile(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
+    return pattern.match(email) is not None
+
+
+def validate_password(password):
+    # Password regex should ensure that entered passwords are:
+    # Start with upper case
+    # Minimum 6 letters
+    # Following by minimum 3-digits
+
+    pattern = re.compile(r"^[A-Z][a-zA-Z]{5,}[0-9]{3,}$")
+    return pattern.match(password) is not None
