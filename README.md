@@ -18,7 +18,7 @@ CLIUniApp is a university management system that provides a command-line interfa
 
 ## Installation
 
-CLIUniApp requires Python 3.7 or higher. Follow these steps to install:
+CLIUniApp requires Python 3.12 or higher. Follow these steps to install:
 
 1. Clone the project:
    ```bash
@@ -50,3 +50,15 @@ CLIUniApp is operated through a command-line interface. Below are the commands a
     enroll [subject_id]
     ```
   - Description: Use this command to register for a course. Replace `[subject_id]` with the actual ID of the course you wish to enroll in.
+
+## how to use git
+- git clone first check your all folders
+- after git clone
+- check your branch (git branch (your name ex "jin"))
+- git checkout your branch
+
+## if you want to push your branch
+- check your branch first and commit to team member
+- git add .
+- git commit -m "your message"
+- git push origin (your branch name)
