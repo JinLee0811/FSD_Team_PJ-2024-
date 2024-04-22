@@ -1,13 +1,14 @@
 # src/models/subject.py
 class Subject:
-    def __init__(self, name):
+    def __init__(self, id, name):
+        self.id = id
         self.name = name
-        self.id = self.generate_subject_id()
-        self.mark = None
-        self.grade = None
+        self.mark = None  # 성적
+        self.grade = None  # 등급
 
-    def generate_subject_id(self):
-        # ID 생성 로직 (가정)
+    def assign_random_mark(self):
+        """랜덤 성적을 생성하고 등급을 할당합니다."""
         from random import randint
 
-        return f"{randint(100, 999):03}"
+        self.mark = randint(25, 100)
+        self.grade = "Pass" if self.mark >= 50 else "Fail"

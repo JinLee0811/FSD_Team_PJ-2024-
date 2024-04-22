@@ -1,4 +1,3 @@
-# src/models/database.py
 import pickle
 
 
@@ -29,11 +28,18 @@ class Database:
             self.save_students()
 
     def update_student(self, student):
+        # Efficiently update student records
+        found = False
         for idx, s in enumerate(self.students):
             if s.email == student.email:
                 self.students[idx] = student
-                self.save_students()
+                found = True
                 break
+        if found:
+            self.save_students()
+        else:
+            # If the student was not found, consider adding them or handle the case appropriately
+            print("Student not found in the database.")
 
     def remove_student_by_id(self, student_id):
         original_len = len(self.students)
@@ -47,3 +53,10 @@ class Database:
     def clear_all(self):
         self.students = []
         self.save_students()
+
+    def remove_student_by_email(self, email):
+        # Extra function to remove a student by email if needed
+        original_len = len(self.students)
+        self.students = [s for s in self.students if s.email != email]
+        if len(self.students) < original_len:
+            self.save_students()
