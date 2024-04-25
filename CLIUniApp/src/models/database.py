@@ -40,12 +40,14 @@ class Database:
     def update_student(self, student):
         found = False
         for idx, s in enumerate(self.students):
-            if s.email == student.email:
+            if s.student_id == student.student_id:  # 학생 ID로 업데이트
                 self.students[idx] = student
                 found = True
                 break
         if found:
             self.save_students()
+        else:
+            print("Student not found.")
 
     def remove_student_by_id(self, student_id):
         original_len = len(self.students)

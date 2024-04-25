@@ -1,11 +1,14 @@
 # src/models/student.py
 class Student:
-    def __init__(self, name, email, password, student_id):
+    def __init__(self, name, email, password, student_id, grade=None, mark=None):
         self.name = name
         self.email = email
         self.password = password
         self.student_id = student_id
+        self.grade = grade
+        self.mark = mark
         self.subjects = []
+        self.average_mark = None  # 평균 점수 추가
 
     def enroll_subject(self, subject):
         if len(self.subjects) < 4:
