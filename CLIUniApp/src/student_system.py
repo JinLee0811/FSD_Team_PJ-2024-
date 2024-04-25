@@ -13,40 +13,39 @@ def student_menu():
     current_student = None
     while True:
         print("\nStudent Menu:")
-        print("1. Login")
-        print("2. Register")
-        print("3. Change Password")
-        print("4. Enroll in Subject")
-        print("5. Remove Enrolled Subject")
-        print("6. Show Enrolled Subjects")
-        print("X. Exit to Main Menu")
-        choice = input("Enter your choice: ").upper()
+        if current_student is None:
+            print("(l) Login")
+            print("(r) Register")
+            print("(x) Exit to Main Menu")
+        else:
+            print("(c) Change Password")
+            print("(e) Enrol in Subject")
+            print("(r) Remove Enrolled Subject")
+            print("(s) Show Enrolled Subjects")
+            print("(x) Exit to Main Menu")
 
-        if choice == "1":
+        choice = input("Enter your choice: ").lower()
+
+        if choice == "l" and current_student is None:
             current_student = login_student()
-        elif choice == "2":
+        elif choice == "r" and current_student is None:
             register_student()
-        elif choice == "3":
-            if current_student:
-                change_password(current_student)
-            else:
-                print("Please log in first.")
-        elif choice == "4":
-            if current_student:
+        elif choice == "c" and current_student is not None:
+            change_password(current_student)
+        elif choice == "e" and current_student is not None:
+            if len(current_student.subjects) < 4:
                 enroll_subject(current_student)
             else:
-                print("Please log in first.")
-        elif choice == "5":
-            if current_student:
-                remove_subject(current_student)
+                print("You are already enrolled in the maximum number of 4 subjects.")
+        elif choice == "r" and current_student is not None:
+            remove_subject(current_student)
+        elif choice == "s" and current_student is not None:
+            show_enrolled_subjects(current_student)
+        elif choice == "x":
+            if current_student is not None:
+                current_student = None
+                print("Logged out successfully.")
             else:
-                print("Please log in first.")
-        elif choice == "6":
-            if current_student:
-                show_enrolled_subjects(current_student)
-            else:
-                print("Please log in first.")
-        elif choice == "X":
-            break
+                break
         else:
             print("Invalid choice. Please try again.")

@@ -19,6 +19,9 @@ def login_student():
         return None
 
 
+import random
+
+
 def register_student():
     name = input("Enter your name: ")
     email = input("Enter your email: ")
@@ -32,9 +35,20 @@ def register_student():
     if db.get_student_by_email(email):
         print("Email already registered.")
         return None
-    student = Student(name=name, email=email, password=password)
+
+    # 랜덤 학생 ID 생성, 중복 방지 로직 포함
+    # ID는 1에서 999999 사이의 숫자로 생성되며, 6자리로 포맷팅됩니다.
+    while True:
+        student_id = random.randint(1, 999999)
+        student_id_formatted = str(student_id).zfill(6)  # 6자리 숫자로 포맷
+        if not db.get_student_by_id(student_id_formatted):
+            break  # 생성된 ID가 데이터베이스에 없으면 반복 중지
+
+    student = Student(
+        name=name, email=email, password=password, student_id=student_id_formatted
+    )
     db.add_student(student)
-    print("Registration successful.")
+    print(f"Registration successful. Your student ID is {student_id_formatted}.")
     return student
 
 

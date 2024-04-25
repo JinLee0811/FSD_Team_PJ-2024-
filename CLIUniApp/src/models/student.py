@@ -1,9 +1,10 @@
 # src/models/student.py
 class Student:
-    def __init__(self, name, email, password):
+    def __init__(self, name, email, password, student_id):
         self.name = name
         self.email = email
         self.password = password
+        self.student_id = student_id
         self.subjects = []
 
     def enroll_subject(self, subject):
