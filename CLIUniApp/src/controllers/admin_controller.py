@@ -23,7 +23,7 @@ def group_students():
         return
 
     # 평균 점수에 따라 학생들을 그룹화
-    grouped_students = {"A": [], "B": [], "C": [], "D": [], "F": []}
+    grouped_students = {"HD": [], "D": [], "C": [], "P": [], "F": []}
     for student in students:
         average_mark = Subject.calculate_average_marks(student.subjects)
         if average_mark >= 85:
@@ -40,9 +40,15 @@ def group_students():
         # 각 학생 객체에 평균 점수 저장
         student.average_mark = average_mark
 
-        # 그룹화된 학생들 출력
-        print(f"Group {grade}:")
-        print(f"- {student.name}, Average Mark: {average_mark}")
+        # 해당 학점 그룹에 학생 추가
+        grouped_students[grade].append(student)
+
+    # 그룹화된 학생들을 그룹 별로 한 번에 출력
+    for grade, students in grouped_students.items():
+        if students:  # 학생이 있는 그룹만 출력
+            print(f"Group {grade}:")
+            for student in students:
+                print(f"- {student.name}, Average Mark: {student.average_mark}")
 
 
 def partition_students():
