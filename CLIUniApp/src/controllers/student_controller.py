@@ -7,7 +7,7 @@ from utils.validator import validate_email, validate_password
 db = Database()
 
 
-def login_student():
+def login_student(db):
     email = input("Enter your email: ")
     password = input("Enter your password: ")
     student = db.get_student_by_email(email)
@@ -19,7 +19,7 @@ def login_student():
         return None
 
 
-def register_student():
+def register_student(db):
     name = input("Enter your name: ")
     email = input("Enter your email: ")
     if not validate_email(email):
@@ -29,23 +29,11 @@ def register_student():
     if not validate_password(password):
         print("Invalid password format.")
         return None
-    if db.get_student_by_email(email):
-        print("Email already registered.")
-        return None
-
-    # 랜덤 학생 ID 생성, 중복 방지 로직 포함
-    while True:
-        student_id = random.randint(1, 999999)
-        student_id_formatted = str(student_id).zfill(6)  # 6자리 숫자로 포맷
-        if not db.get_student_by_id(student_id_formatted):
-            break  # 생성된 ID가 데이터베이스에 없으면 반복 중지
-
-    student = Student(
-        name=name, email=email, password=password, student_id=student_id_formatted
-    )
-    db.add_student(student)
-    print(f"Registration successful. Your student ID is {student_id_formatted}.")
-    return student
+    student_id = random.randint(100000, 999999)
+    new_student = Student(name, email, password, str(student_id))
+    db.add_student(new_student)
+    print(f"Registration successful. Your student ID is {new_student.student_id}.")
+    return new_student
 
 
 def change_password(student):

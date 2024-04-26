@@ -6,6 +6,9 @@ from controllers.admin_controller import (
     remove_student,
     show_students,
 )
+from models.database import Database
+
+db = Database()
 
 
 def admin_menu():
@@ -17,18 +20,18 @@ def admin_menu():
         print("(r) Remove a Student")
         print("(s) Show All Students")
         print("(x) Exit to Main Menu")
-        choice = input("Enter your choice: ").lower()  # Use lower() to match the case
+        choice = input("Enter your choice: ").lower()
 
         if choice == "c":
-            clear_database()
+            clear_database(db)
         elif choice == "g":
-            group_students()
+            group_students(db)
         elif choice == "p":
-            partition_students()
+            partition_students(db)
         elif choice == "r":
-            remove_student()  # This function might need an ID input to function correctly
+            remove_student(db)
         elif choice == "s":
-            show_students()
+            show_students(db)
         elif choice == "x":
             break
         else:

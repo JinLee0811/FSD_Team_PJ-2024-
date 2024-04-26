@@ -1,7 +1,20 @@
 import pickle
+import threading
 
 
-class Database:
+class SingletonMeta(type):
+    _instances = {}
+    _lock: threading.Lock = threading.Lock()
+
+    def __call__(cls, *args, **kwargs):
+        with cls._lock:
+            if cls not in cls._instances:
+                instance = super().__call__(*args, **kwargs)
+                cls._instances[cls] = instance
+            return cls._instances[cls]
+
+
+class Database(metaclass=SingletonMeta):
     def __init__(self):
         self.filename = "data/students.data"
         self.students = self.load_students()
@@ -40,7 +53,7 @@ class Database:
     def update_student(self, student):
         found = False
         for idx, s in enumerate(self.students):
-            if s.student_id == student.student_id:  # 학생 ID로 업데이트
+            if s.student_id == student.student_id:
                 self.students[idx] = student
                 found = True
                 break
@@ -54,6 +67,8 @@ class Database:
         self.students = [s for s in self.students if s.student_id != student_id]
         if len(self.students) < original_len:
             self.save_students()
+            return True  # 학생이 성공적으로 제거되었습니다.
+        return False  # 학생이 목록에 없어 제거되지 않았습니다.
 
     def get_all_students(self):
         return self.students

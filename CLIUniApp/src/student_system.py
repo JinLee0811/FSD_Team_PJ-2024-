@@ -1,3 +1,4 @@
+# src/student_system.py
 from controllers.student_controller import (
     change_password,
     login_student,
@@ -8,9 +9,9 @@ from controllers.subject_controller import (
     remove_subject,
     show_enrolled_subjects,
 )
-from models.database import Database  # Database 클래스를 가져오는 부분 추가
+from models.database import Database
 
-db = Database()  # Database 인스턴스를 생성
+db = Database()
 
 
 def student_menu():
@@ -31,22 +32,15 @@ def student_menu():
         choice = input("Enter your choice: ").lower()
 
         if choice == "l" and current_student is None:
-            current_student = login_student()
+            current_student = login_student(db)
         elif choice == "r" and current_student is None:
-            register_student()
+            register_student(db)
         elif choice == "c" and current_student is not None:
-            change_password(current_student)
+            change_password(current_student, db)
         elif choice == "e" and current_student is not None:
-            if len(current_student.subjects) < 4:
-                enroll_subject(
-                    current_student, db
-                )  # db 인스턴스를 enroll_subject 함수에 전달
-            else:
-                print("You are already enrolled in the maximum number of 4 subjects.")
+            enroll_subject(current_student, db)
         elif choice == "r" and current_student is not None:
-            remove_subject(
-                current_student, db
-            )  # db 인스턴스를 remove_subject 함수에 전달
+            remove_subject(current_student, db)
         elif choice == "s" and current_student is not None:
             show_enrolled_subjects(current_student)
         elif choice == "x":

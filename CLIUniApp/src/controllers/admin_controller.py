@@ -5,7 +5,7 @@ from models.subject import Subject  # Make sure to import the Subject class
 db = Database()
 
 
-def clear_database():
+def clear_database(db):
     confirmation = input(
         "Are you sure you want to clear the database? This cannot be undone. Type 'yes' to confirm: "
     )
@@ -16,7 +16,7 @@ def clear_database():
         print("Database clear cancelled.")
 
 
-def group_students():
+def group_students(db):
     students = db.get_all_students()
     if not students:
         print("<nothing to display>")
@@ -51,7 +51,7 @@ def group_students():
                 print(f"- {student.name}, Average Mark: {student.average_mark}")
 
 
-def partition_students():
+def partition_students(db):
     students = db.get_all_students()
     if not students:
         print("<nothing to display>")
@@ -87,8 +87,9 @@ def partition_students():
         print("No fail students.")
 
 
-def remove_student():
-    student_id = input("Enter student ID to remove: ")
+def remove_student(db):
+    # 입력 받은 학생 ID에서 공백을 제거
+    student_id = input("Enter student ID to remove: ").strip()
     removed = db.remove_student_by_id(student_id)
     if removed:
         print("Student removed.")
@@ -96,12 +97,12 @@ def remove_student():
         print("Student not found.")
 
 
-def show_students():
+def show_students(db):
     students = db.get_all_students()
     if not students:
-        print("<nothing to display>")
+        print("No students to display.")
         return
 
+    print("List of All Students:")
     for student in students:
-        # Assuming Student object has these attributes for simplicity
         print(f"Name: {student.name}, ID: {student.student_id}, Email: {student.email}")

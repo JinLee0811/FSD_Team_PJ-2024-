@@ -2,9 +2,8 @@ import random
 
 
 class Subject:
-    def __init__(self, id, name):
+    def __init__(self, id):
         self.id = id
-        self.name = name
         self.mark = None  # 성적
         self.grade = None  # 등급
 
@@ -33,12 +32,6 @@ def enroll_subject(student, db):
         print("You are already enrolled in the maximum number of 4 subjects.")
         return
 
-    # 사전에 정의된 과목 이름 리스트
-    subject_names = ["Mathematics", "Physics", "Chemistry", "Biology", "History"]
-
-    # 랜덤 과목 이름 선택
-    subject_name = random.choice(subject_names)
-
     while True:
         # 랜덤 과목 ID 생성 (1 ~ 999 사이의 숫자를 문자열로 변환)
         subject_id = str(random.randint(1, 999)).zfill(3)  # 항상 3자리를 유지
@@ -48,7 +41,7 @@ def enroll_subject(student, db):
             break  # 중복되지 않는 ID 발견 시 while 루프 탈출
 
     # 과목 객체 생성 및 랜덤 성적 할당
-    new_subject = Subject(subject_id, subject_name)
+    new_subject = Subject(subject_id)
     new_subject.assign_random_mark()
 
     # 학생의 과목 목록에 과목 객체 추가
@@ -57,7 +50,7 @@ def enroll_subject(student, db):
     # 데이터베이스에 학생 정보 업데이트
     db.update_student(student)
     print(
-        f"Successfully enrolled in {subject_name} with subject ID {subject_id}, mark {new_subject.mark}, and grade {new_subject.grade}."
+        f"Successfully enrolled subject ID {subject_id}, mark {new_subject.mark}, and grade {new_subject.grade}."
     )
 
 
@@ -87,6 +80,4 @@ def show_enrolled_subjects(student):
 
     print("Enrolled Subjects:")
     for subject in student.subjects:
-        print(
-            f"{subject.id} - {subject.name}, Mark: {subject.mark}, Grade: {subject.grade}"
-        )
+        print(f"{subject.id} - Mark: {subject.mark}, Grade: {subject.grade}")
