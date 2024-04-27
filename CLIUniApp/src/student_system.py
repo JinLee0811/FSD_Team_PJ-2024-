@@ -1,4 +1,5 @@
 # src/student_system.py
+from colorama import Back, Fore, Style, init
 from controllers.student_controller import (
     change_password,
     login_student,
@@ -11,29 +12,34 @@ from controllers.subject_controller import (
 )
 from models.database import Database
 
+init(autoreset=True)
+
 db = Database()
 
 
 def student_menu():
     current_student = None
     while True:
-        print("\nStudent Menu:")
+        print(Fore.BLUE + "\nStudent Menu:")
         if current_student is None:
-            print("(l) Login")
-            print("(r) Register")
-            print("(x) Exit to Main Menu")
+            print(Fore.BLUE + "(l) Login")
+            print(Fore.BLUE + "(r) Register")
+            print(Fore.BLUE + "(x) Exit to Main Menu")
         else:
-            print("(c) Change Password")
-            print("(e) Enrol in Subject")
-            print("(r) Remove Enrolled Subject")
-            print("(s) Show Enrolled Subjects")
-            print("(x) Exit to Main Menu")
+            print(Fore.BLUE + "\nStudent Course Menu")
+            print(Fore.BLUE + "(c) Change Password")
+            print(Fore.BLUE + "(e) Enrol in Subject")
+            print(Fore.BLUE + "(r) Remove Enrolled Subject")
+            print(Fore.BLUE + "(s) Show Enrolled Subjects")
+            print(Fore.BLUE + "(x) Exit to Main Menu")
 
         choice = input("Enter your choice: ").lower()
 
         if choice == "l" and current_student is None:
+            print(Fore.GREEN + "\nStudent Sign In")
             current_student = login_student(db)
         elif choice == "r" and current_student is None:
+            print(Fore.GREEN + "\nStudent Sign Up")
             register_student(db)
         elif choice == "c" and current_student is not None:
             change_password(current_student, db)
@@ -50,4 +56,4 @@ def student_menu():
             else:
                 break
         else:
-            print("Invalid choice. Please try again.")
+            print(Fore.RED + "Invalid choice. Please try again.")

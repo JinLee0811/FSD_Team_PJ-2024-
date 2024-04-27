@@ -1,4 +1,5 @@
 # src/admin_system.py
+from colorama import Back, Fore, Style, init
 from controllers.admin_controller import (
     clear_database,
     group_students,
@@ -7,6 +8,8 @@ from controllers.admin_controller import (
     show_students,
 )
 from models.database import Database
+
+init(autoreset=True)
 
 db = Database()
 

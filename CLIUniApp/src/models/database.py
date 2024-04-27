@@ -1,6 +1,10 @@
 import pickle
 import threading
 
+from colorama import Back, Fore, Style, init
+
+init(autoreset=True)
+
 
 class SingletonMeta(type):
     _instances = {}
@@ -48,7 +52,7 @@ class Database(metaclass=SingletonMeta):
             self.students.append(student)
             self.save_students()
         else:
-            print("Student with this email or ID already exists.")
+            print(Fore.BLUE + f"Student {student.email} already exists")
 
     def update_student(self, student):
         found = False

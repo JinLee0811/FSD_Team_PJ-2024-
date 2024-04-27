@@ -1,9 +1,11 @@
 import random
 
+from colorama import Back, Fore, Style, init
 from models.database import Database
 from models.student import Student
 from utils.validator import validate_email, validate_password
 
+init(autoreset=True)
 db = Database()
 
 
@@ -20,19 +22,30 @@ def login_student(db):
 
 
 def register_student(db):
-    name = input("Enter your name: ")
     email = input("Enter your email: ")
-    if not validate_email(email):
-        print("Invalid email format.")
-        return None
     password = input("Enter your password: ")
-    if not validate_password(password):
-        print("Invalid password format.")
+
+    # Check both email and password formats first before displaying any error
+    email_valid = validate_email(email)
+    password_valid = validate_password(password)
+
+    if not (email_valid and password_valid):
+        print(Fore.RED + "Incorrect email or password format.")
         return None
+
+    # If the formats are correct, check for existing student
+    if db.get_student_by_email(email):
+        print(Fore.BLUE + f"Student {email} already exists")
+        return None
+
+    # At this point, both email and password are valid, and the student does not exist in the DB
+    print(Fore.YELLOW + "Email and password formats acceptable")
+
+    name = input("Enter your name: ")
     student_id = random.randint(100000, 999999)
     new_student = Student(name, email, password, str(student_id))
     db.add_student(new_student)
-    print(f"Registration successful. Your student ID is {new_student.student_id}.")
+    print(Fore.YELLOW + f"Enrolling Student {new_student.name}.")
     return new_student
 
 

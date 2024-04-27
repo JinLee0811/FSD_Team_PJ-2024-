@@ -1,5 +1,9 @@
 import random
 
+from colorama import Back, Fore, Style, init
+
+init(autoreset=True)
+
 
 class Subject:
     def __init__(self, id):

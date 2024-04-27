@@ -1,7 +1,8 @@
-# src/controllers/admin_controller.py
+from colorama import Back, Fore, Style, init
 from models.database import Database
 from models.subject import Subject  # Make sure to import the Subject class
 
+init(autoreset=True)
 db = Database()
 
 

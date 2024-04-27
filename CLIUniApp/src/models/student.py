@@ -1,4 +1,3 @@
-# src/models/student.py
 class Student:
     def __init__(self, name, email, password, student_id, grade=None, mark=None):
         self.name = name
