@@ -14,10 +14,13 @@ def login_student(db):
     password = input("Enter your password: ")
     student = db.get_student_by_email(email)
     if student and student.password == password:
-        print("Login successful!")
+        print(Fore.YELLOW + "Login successful!")
         return student
+    elif student is None:
+        print(Fore.RED + "Student does not exist.")
+        return None
     else:
-        print("Invalid credentials.")
+        print(Fore.RED + "Invalid credentials.")
         return None
 
 

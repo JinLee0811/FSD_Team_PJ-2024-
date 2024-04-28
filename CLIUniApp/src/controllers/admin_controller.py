@@ -7,18 +7,20 @@ db = Database()
 
 
 def clear_database(db):
+    print(Fore.YELLOW + "Clearing Students Database.")
     confirmation = input(
-        "Are you sure you want to clear the database? This cannot be undone. Type 'yes' to confirm: "
+        Fore.RED + "Are you sure you want to clear the database? (Y)ES or (N)O: "
     )
     if confirmation.lower() == "yes":
         db.clear_all()
-        print("Database cleared.")
+        print(Fore.YELLOW + "Student Database cleared.")
     else:
         print("Database clear cancelled.")
 
 
 def group_students(db):
     students = db.get_all_students()
+    print(Fore.YELLOW + "Grade Grouping.")
     if not students:
         print("<nothing to display>")
         return
@@ -54,8 +56,9 @@ def group_students(db):
 
 def partition_students(db):
     students = db.get_all_students()
+    print(Fore.YELLOW + "PASS/FAIL Partition.")
     if not students:
-        print("<nothing to display>")
+        print("< Nothing to Display >")
         return
 
     # Pass/Fail로 구분
@@ -72,7 +75,7 @@ def partition_students(db):
 
     # Pass/Fail로 출력
     if pass_students:
-        print("Pass Students:")
+        print("PASS Students:")
         for student in pass_students:
             average_mark = Subject.calculate_average_marks(student.subjects)
             print(f"- {student.name}, Average Mark: {average_mark}")
@@ -80,7 +83,7 @@ def partition_students(db):
         print("No pass students.")
 
     if fail_students:
-        print("Fail Students:")
+        print("FAIL Students:")
         for student in fail_students:
             average_mark = Subject.calculate_average_marks(student.subjects)
             print(f"- {student.name}, Average Mark: {average_mark}")
@@ -90,20 +93,20 @@ def partition_students(db):
 
 def remove_student(db):
     # 입력 받은 학생 ID에서 공백을 제거
-    student_id = input("Enter student ID to remove: ").strip()
+    student_id = input("Remove by Students ID: ").strip()
     removed = db.remove_student_by_id(student_id)
     if removed:
-        print("Student removed.")
+        print(Fore.YELLOW + f"Removing Student {student_id} Account.")
     else:
-        print("Student not found.")
+        print(Fore.RED + f"Student {student_id} does not exist.")
 
 
 def show_students(db):
     students = db.get_all_students()
+    print(Fore.YELLOW + "Student List")
     if not students:
-        print("No students to display.")
+        print("< Nothing to Display >")
         return
 
-    print("List of All Students:")
     for student in students:
-        print(f"Name: {student.name}, ID: {student.student_id}, Email: {student.email}")
+        print(f"{student.name} :: {student.student_id} --> Email: {student.email}")
