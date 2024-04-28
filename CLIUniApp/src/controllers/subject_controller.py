@@ -33,7 +33,7 @@ class Subject:
 
 def enroll_subject(student, db):
     if len(student.subjects) >= 4:
-        print("You are already enrolled in the maximum number of 4 subjects.")
+        print(Fore.RED + "Students are allowed to enrol in 4 subjects only")
         return
 
     while True:
@@ -53,8 +53,10 @@ def enroll_subject(student, db):
 
     # 데이터베이스에 학생 정보 업데이트
     db.update_student(student)
+    print(Fore.YELLOW + f"Enrolling in Subject - {subject_id}")
     print(
-        f"Successfully enrolled subject ID {subject_id}, mark {new_subject.mark}, and grade {new_subject.grade}."
+        Fore.YELLOW
+        + f"You are now enrolled in {len(student.subjects)} out of 4 subjects."
     )
 
 
@@ -62,14 +64,18 @@ def remove_subject(student, db):
     if student is None:
         print("No student is logged in.")
         return
-    subject_id = input("Enter the subject ID to remove: ")
+    subject_id = input("Remove subject by ID:")
     original_length = len(student.subjects)
     student.subjects = [
         subject for subject in student.subjects if subject.id != subject_id
     ]
     if len(student.subjects) < original_length:
         db.update_student(student)  # 데이터베이스 업데이트
-        print("Subject removed successfully.")
+        print(Fore.YELLOW + f"Droping Subject - {subject_id}")
+        print(
+            Fore.YELLOW
+            + f"You are now enrolled in {len(student.subjects)} out of 4 subjects."
+        )
     else:
         print("Subject not found in your enrolled list.")
 
@@ -79,9 +85,11 @@ def show_enrolled_subjects(student):
         print("No student is logged in.")
         return
     if not student.subjects:
-        print("No subjects enrolled.")
+        print(Fore.YELLOW + f"Showing 0 subjects")
         return
 
-    print("Enrolled Subjects:")
+    print(Fore.YELLOW + f"Showing {len(student.subjects)} subjects.")
     for subject in student.subjects:
-        print(f"{subject.id} - Mark: {subject.mark}, Grade: {subject.grade}")
+        print(
+            f"[ Subject::{subject.id} -- Mark = {subject.mark} -- grade = {subject.grade} ]"
+        )

@@ -49,14 +49,21 @@ def register_student(db):
     return new_student
 
 
-def change_password(student):
+def change_password(student, db):
     if student is None:
         print("No student is logged in.")
         return
-    new_password = input("Enter new password: ")
+    print(Fore.YELLOW + "Updating Password")
+    new_password = input("New password: ")
+    confirm_password = input("Confirm password: ")
+
+    if new_password != confirm_password:
+        print(Fore.RED + "Passwords does not match - try again")
+        return
+
     if validate_password(new_password):
         student.password = new_password
         db.update_student(student)
-        print("Password updated successfully.")
+        print(Fore.YELLOW + "Password updated successfully.")
     else:
-        print("Invalid password format.")
+        print(Fore.RED + "Invalid password format.")
