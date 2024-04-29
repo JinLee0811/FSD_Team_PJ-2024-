@@ -1,3 +1,10 @@
+import os
+import sys
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+
 import pickle
 import threading
 
@@ -20,8 +27,12 @@ class SingletonMeta(type):
 
 class Database(metaclass=SingletonMeta):
     def __init__(self):
-        self.filename = "data/students.data"
+        # 실행 중인 스크립트의 절대 경로를 기준으로 파일 경로를 설정합니다.
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.filename = os.path.join(base_dir, "data", "students.data")
         self.students = self.load_students()
+
+    # 나머지 메서드들...
 
     def load_students(self):
         try:
@@ -71,8 +82,8 @@ class Database(metaclass=SingletonMeta):
         self.students = [s for s in self.students if s.student_id != student_id]
         if len(self.students) < original_len:
             self.save_students()
-            return True  # 학생이 성공적으로 제거되었습니다.
-        return False  # 학생이 목록에 없어 제거되지 않았습니다.
+            return True  # 학생이 성공적으로 제거되었을떄
+        return False  # 학생이 목록에 없어 제거되지 않았을떄
 
     def get_all_students(self):
         return self.students
