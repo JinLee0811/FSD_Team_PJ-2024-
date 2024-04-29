@@ -1,19 +1,20 @@
-print("I'm starting now")
+# src/utils/validators.py
+import re
 
-# make color difference of commend
-# def colorize_text_blue(text):
-#     return f"\033[1;34m{text}\033[0m"
 
-# def colorize_text_green(text):
-#     return f"\033[1;32m{text}\033[0m"
+def validate_email(email):
+    # Email regex should ensure that the dot ( . ), the (@ ) and the ( university.com ) are present
+    # ex) -> jeongjin.lee@university.com
+    pattern = re.compile(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
+    return pattern.match(email) is not None
 
-# def colorize_text_red(text):
-#     return f"\031[1;34m{text}\033[0m"
 
-# def colorize_text_yellow(text):
-#     return f"\033[1;33m{text}\033[0m"
-    
-    
-# print(colorize_text_blue("I'm done now"))
-# print(colorize_text_yellow("I'm done now"))
+def validate_password(password):
+    # Password regex should ensure that entered passwords are:
+    # Start with upper case
+    # Minimum 6 letters
+    # Following by minimum 3-digits
+    # ex) -> Abcdef123
 
+    pattern = re.compile(r"^[A-Z][a-zA-Z]{5,}[0-9]{3,}$")
+    return pattern.match(password) is not None

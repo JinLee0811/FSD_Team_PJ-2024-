@@ -1,64 +1,63 @@
-# CLIUniApp
+# University Interactive System: CLIUniApp & GUIUniApp
 
-CLIUniApp is a university management system that provides a command-line interface for managing various needs of students and administrators. This system allows students to register for courses, delete courses, change passwords, and more, while administrators can manage student information, grades, and other administrative tasks.
+Welcome to the University Interactive System repository, featuring both command-line (CLIUniApp) and graphical user interface (GUIUniApp) components designed to manage student and administrative operations for a local university. This Python-based system allows students to register, log in, enroll in subjects, and more, while admins can manage student records and view performance data.
 
 ## Features
 
-### Students
-- Register and delete courses
-- Change password
-- View course enrollments
-- Login and manage profile
+### CLIUniApp
+- **Student Registration and Login:** Allows students to register and log into the system using their credentials.
+- **Subject Enrollment:** Registered students can enroll in up to four subjects.
+- **Password Management:** Enables students to change their passwords.
+- **Admin Features:** Admins can manage student details, categorize students by grades, and clear student records.
 
-### Administrators
-- View student information
-- Manage grades and courses
-- Manage student accounts
-- Login and manage permissions
+### GUIUniApp
+- **Student Login Interface:** Provides a user-friendly GUI for student login.
+- **Enrollment Management:** Allows students to manage their enrolled subjects through a GUI.
+- **Data Integrity:** Manages and stores all student and subject data securely using `students.data`.
 
-## Installation
+## Getting Started
 
-CLIUniApp requires Python 3.12 or higher. Follow these steps to install:
+### Prerequisites
+- Python 3.12 installed on your system. You can download it from [Python.org](https://www.python.org/downloads/release/python-3120/).
 
-1. Clone the project:
-   ```bash
-   git clone https://your-repository-url.com 
+### Installation
+1. Clone this repository to your local machine:
+- git clone https://github.com/JinLee0811/FSD_Team_PJ_2024
+2. Navigate to the cloned directory:
+- cd FSD_Team_PJ_2024
 
-2. Install the required libraries:
-    ```pip install -r requirements.txt
 
-3. Run the application:
-    ```python src/main.py
+### Running the Applications
+
+#### CLIUniApp
+To run the CLI application, execute the following command in your terminal:
+- cd /CLIUniApp/Src python main.py
+
+
+<!-- #### GUIUniApp
+To launch the GUI application, run the following command:
+- python guiuniapp.py -->
 
 
 ## Usage
 
-CLIUniApp is operated through a command-line interface. Below are the commands available for students and administrators:
+Follow the on-screen prompts to navigate through the systems. Use the designated keys (e.g., 'l' to login, 'r' to register) as instructed by the command line prompts.
 
-### For Students
+## Contributing
 
-- **Login**
-  ```bash
-  login --student [student_id] [password]
+Contributions are welcome and make the open-source community thrive. To contribute:
+
+1. Fork the Project
+2. Checkout your Feature Branch (`git checkout -b your name`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin your branch name`)
+5. Open a Pull Request
+
+## Contact
+
+Jin Lee - [jeongjin.lee@student.uts.edu.au](mailto:jeongjin.lee@student.uts.edu.au)
+
+Project Link: [https://github.com/JinLee0811/FSD_Team_PJ_2024](https://github.com/JinLee0811/FSD_Team_PJ_2024)
 
 
-### For Students
-
-- **Enroll in a Course**
-  - Command:
-    ```
-    enroll [subject_id]
-    ```
-  - Description: Use this command to register for a course. Replace `[subject_id]` with the actual ID of the course you wish to enroll in.
-
-## how to use git
-- git clone first check your all folders
-- after git clone
-- check your branch (git branch (your name ex "jin"))
-- git checkout your branch
-
-## if you want to push your branch
-- check your branch first and commit to team member
-- git add .
-- git commit -m "your message"
-- git push origin (your branch name)
+- pip install 
