@@ -7,7 +7,7 @@ sys.path.append(parent_dir)
 
 import tkinter as tk
 from tkinter import messagebox
-
+# from utils import logger
 from guimodel.model import GUIUniAppModel
 from views.view import LoginFrame, EnrolmentFrame, RegistrationFrame
 

@@ -1,15 +1,28 @@
+
+
 import os
 import sys
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
+# 현재 작업 디렉토리 가져오기
+currentPath = os.getcwd()
 
-from models.database import Database, Student
+# rootDir 설정
+rootDir = currentPath.replace('GUIUniApp', '')
+
+# 모델 디렉토리 경로 추가
+modelsPath = os.path.join(rootDir, 'CLIUniApp/src/models/')
+sys.path.append(modelsPath)
+
+# 경로 확인을 위해 출력
+print(sys.path)
+
+# database 모듈 임포트 시도
+import database
+
 
 class GUIUniAppModel:
     def __init__(self):
-        self.database = Database()
+        self.database = database.Database()
         self.logged_in_user = None
 
     def authenticate(self, email, password):

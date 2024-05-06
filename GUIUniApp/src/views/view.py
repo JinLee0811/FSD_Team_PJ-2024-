@@ -2,7 +2,6 @@ import os
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
-from utils.logger import *
 
 
 
@@ -13,11 +12,11 @@ class LoadingScreen(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        # 현재 파일의 디렉터리 경로 가져오기:# /Users/irene/_Proj/_FSD_Project/GUIUniApp/src/views
+        # 현재 파일의 디렉터리 경로 가져오기:# /Users/irene/_Proj/_FSD_Project/GUIUniApp/src/frames
         current_dir = os.path.dirname(os.path.abspath(__file__))
         
         # uts_logo.jpg 파일의 전체 경로 만들기
-        logo_path = os.path.join(current_dir, "uts.jpeg")
+        logo_path = os.path.join(current_dir, "uts_b_logo.jpeg")
         logo_image = Image.open(logo_path)
         logo_image = logo_image.resize((180, 180), Image.Resampling.LANCZOS)  # 이미지 크기 조정
         logo_img = ImageTk.PhotoImage(logo_image)
@@ -41,11 +40,11 @@ class LoginFrame(tk.Frame):
         self.pack(expand=True)
         
     def create_widgets(self):
-        # 현재 파일의 디렉터리 경로 가져오기:# /Users/irene/_Proj/_FSD_Project/GUIUniApp/src/views
+        # 현재 파일의 디렉터리 경로 가져오기:# /Users/irene/_Proj/_FSD_Project/GUIUniApp/src/frames
         current_dir = os.path.dirname(os.path.abspath(__file__))
 
         # 이미지 로고
-        logo_path = os.path.join(current_dir, "utss.png")
+        logo_path = os.path.join(current_dir, "uts_w_logo.png")
         logo_image = Image.open(logo_path)
         logo_image = logo_image.resize((50, 50), Image.Resampling.LANCZOS)  # 이미지 크기 조정
         logo_img = ImageTk.PhotoImage(logo_image)
@@ -121,7 +120,7 @@ class LoginFrame(tk.Frame):
                     
     def login(self):
         print("Login method entered")  # Debug print
-        logger.info("Login method entered")
+        # logger.info("Login method entered")
         email = self.email_entry.get()
         password = self.password_entry.get()
         if self.controller.authenticate(email, password):
@@ -135,7 +134,7 @@ class LoginFrame(tk.Frame):
         print("Login method exited")  # Debug print
 
     def register(self):
-        logger.info("Register method entered")
+        # logger.info("Register method entered")
         self.controller.show_registration_frame()
 
 class RegistrationFrame(tk.Frame):
