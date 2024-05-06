@@ -9,7 +9,7 @@ sys.path.append(parent_dir)
 from colorama import Back, Fore, Style, init
 from models.database import Database
 from models.student import Student
-from utils.validator import validate_email, validate_password
+# from utils.validator import validate_email, validate_password
 
 init(autoreset=True)
 db = Database()

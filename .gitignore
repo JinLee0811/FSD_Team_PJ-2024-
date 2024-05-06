@@ -1,22 +1,19 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-
-# Python virtual environments
-.venv/
-env/
-ENV/
-
-# IDE settings
-.vscode/
-.idea/
-
-# Operating system generated files
-.DS_Store
-Thumbs.db
-
-# Environment variables
-.env
-
-# Logs
-*.log
+.vscode/settings.json
+CLIUniApp/src/__pycache__/admin_system.cpython-312.pyc
+CLIUniApp/src/__pycache__/student_system.cpython-312.pyc
+CLIUniApp/src/controllers/__pycache__/admin_controller.cpython-312.pyc
+CLIUniApp/src/controllers/__pycache__/student_controller.cpython-312.pyc
+CLIUniApp/src/controllers/__pycache__/subject_controller.cpython-312.pyc
+CLIUniApp/src/models/__pycache__/database.cpython-312.pyc
+CLIUniApp/src/models/__pycache__/student.cpython-312.pyc
+CLIUniApp/src/models/__pycache__/subject.cpython-312.pyc
+CLIUniApp/src/utils/__pycache__/validator.cpython-312.pyc
+GUIUniApp/logs/app.log
+GUIUniApp/src/controllers/__pycache__/controller.cpython-312.pyc
+GUIUniApp/src/logs/app.log
+GUIUniApp/src/model/__pycache__/database.cpython-312.pyc
+GUIUniApp/src/model/__pycache__/model.cpython-312.pyc
+GUIUniApp/src/utils/__pycache__/logger.cpython-312.pyc
+GUIUniApp/src/views/uts_logo.jpg
+GUIUniApp/src/views/uts_logo.png
+GUIUniApp/src/views/__pycache__/view.cpython-312.pyc
