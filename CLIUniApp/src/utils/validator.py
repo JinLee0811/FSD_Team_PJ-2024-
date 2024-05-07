@@ -1,10 +1,9 @@
-# src/utils/validators.py
 import re
 
 
 def validate_email(email):
     # Email regex should ensure that the dot ( . ), the (@ ) and the ( university.com ) are present
-    # ex) -> jeongjin.lee@university.com
+    # ex) -> jin.lee@university.com
     pattern = re.compile(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
     return pattern.match(email) is not None
 

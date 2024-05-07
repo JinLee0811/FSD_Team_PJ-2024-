@@ -1,12 +1,3 @@
-# src/admin_system.py
-import os
-import sys
-
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
-
-from colorama import Back, Fore, Style, init
 from controllers.admin_controller import (
     clear_database,
     group_students,
@@ -15,8 +6,6 @@ from controllers.admin_controller import (
     show_students,
 )
 from models.database import Database
-
-init(autoreset=True)
 
 db = Database()
 

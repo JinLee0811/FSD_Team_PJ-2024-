@@ -7,7 +7,7 @@ class Student:
         self.grade = grade
         self.mark = mark
         self.subjects = []
-        self.average_mark = None  # 평균 점수 추가
+        self.average_mark = None
 
     def enroll_subject(self, subject):
         if len(self.subjects) < 4:

@@ -1,15 +1,9 @@
-import os
 import random
-import sys
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
-
-from colorama import Back, Fore, Style, init
+from colorama import Fore, init
 from models.database import Database
 from models.student import Student
-# from utils.validator import validate_email, validate_password
+from utils.validator import validate_email, validate_password
 
 init(autoreset=True)
 db = Database()
@@ -26,7 +20,7 @@ def login_student(db):
         print(Fore.RED + "Student does not exist.")
         return None
     else:
-        print(Fore.RED + "Invalid credentials.")
+        print(Fore.RED + "Incorrect email or password.")
         return None
 
 
