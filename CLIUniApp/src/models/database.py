@@ -8,7 +8,7 @@ sys.path.append(parent_dir)
 import pickle
 import threading
 
-from colorama import Back, Fore, Style, init
+from colorama import Fore, init
 
 init(autoreset=True)
 
@@ -27,12 +27,8 @@ class SingletonMeta(type):
 
 class Database(metaclass=SingletonMeta):
     def __init__(self):
-        # 실행 중인 스크립트의 절대 경로를 기준으로 파일 경로를 설정합니다.
-        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        self.filename = os.path.join(base_dir, "data", "students.data")
+        self.filename = os.path.join(parent_dir, "data", "students.data")
         self.students = self.load_students()
-
-    # 나머지 메서드들...
 
     def load_students(self):
         try:

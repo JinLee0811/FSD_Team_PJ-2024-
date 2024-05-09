@@ -1,34 +1,9 @@
 import random
 
-from colorama import Back, Fore, Style, init
+from colorama import Fore, init
+from models.subject import Subject
 
 init(autoreset=True)
-
-
-class Subject:
-    def __init__(self, id):
-        self.id = id
-        self.mark = None  # 성적
-        self.grade = None  # 등급
-
-    def assign_random_mark(self):
-        """랜덤 성적을 생성하고 등급을 할당합니다."""
-        self.mark = random.randint(25, 100)
-        self.grade = self.assign_grade(self.mark)
-
-    @staticmethod
-    def assign_grade(mark):
-        """점수에 따라 등급을 할당합니다."""
-        if mark < 50:
-            return "F"  # Fail
-        elif mark < 65:
-            return "P"  # Pass
-        elif mark < 75:
-            return "C"  # Credit
-        elif mark < 85:
-            return "D"  # Distinction
-        else:
-            return "HD"  # High Distinction
 
 
 def enroll_subject(student, db):
@@ -37,10 +12,8 @@ def enroll_subject(student, db):
         return
 
     while True:
-        # 랜덤 과목 ID 생성 (1 ~ 999 사이의 숫자를 문자열로 변환)
-        subject_id = str(random.randint(1, 999)).zfill(3)  # 항상 3자리를 유지
+        subject_id = str(random.randint(1, 999)).zfill(3)
 
-        # 이미 등록된 과목 ID와 중복되는지 확인
         if not any(s.id == subject_id for s in student.subjects):
             break  # 중복되지 않는 ID 발견 시 while 루프 탈출
 

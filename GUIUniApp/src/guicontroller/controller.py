@@ -9,7 +9,7 @@ import tkinter as tk
 from tkinter import messagebox
 # from utils import logger
 from guimodel.model import GUIUniAppModel
-from views.view import LoginFrame, EnrolmentFrame, RegistrationFrame
+from guiframe.view import LoginFrame, EnrolmentFrame
 
 class GUIUniAppController:
     def __init__(self, master):
@@ -23,10 +23,7 @@ class GUIUniAppController:
 
     def show_enrolment_frame(self):
         self.switch_frame(EnrolmentFrame)
-
-    # def show_registration_frame(self):
-    #     self.switch_frame(RegistrationFrame)
-
+        
     def switch_frame(self, frame_class):
         if self.current_frame is not None:
             self.current_frame.destroy()

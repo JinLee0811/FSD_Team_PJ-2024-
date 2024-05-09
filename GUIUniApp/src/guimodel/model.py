@@ -1,7 +1,8 @@
 
-
 import os
 import sys
+
+
 
 # 현재 작업 디렉토리 가져오기
 currentPath = os.getcwd()
@@ -17,8 +18,7 @@ sys.path.append(modelsPath)
 print(sys.path)
 
 # database 모듈 임포트 시도
-import database
-
+import database,student
 
 class GUIUniAppModel:
     def __init__(self):

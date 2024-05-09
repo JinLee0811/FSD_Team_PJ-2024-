@@ -1,13 +1,6 @@
-import os
-import sys
-
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
-
-from colorama import Back, Fore, Style, init
+from colorama import Fore, init
 from models.database import Database
-from models.subject import Subject  # Make sure to import the Subject class
+from models.subject import Subject
 
 init(autoreset=True)
 db = Database()
@@ -18,11 +11,24 @@ def clear_database(db):
     confirmation = input(
         Fore.RED + "Are you sure you want to clear the database? (Y)ES or (N)O: "
     )
-    if confirmation.lower() == "yes":
+    if confirmation.lower() in ["yes", "y"]:
         db.clear_all()
         print(Fore.YELLOW + "Student Database cleared.")
     else:
         print("Database clear cancelled.")
+
+
+def calculate_grade(average_mark):
+    if average_mark >= 85:
+        return "HD"
+    elif average_mark >= 75:
+        return "D"
+    elif average_mark >= 65:
+        return "C"
+    elif average_mark >= 50:
+        return "P"
+    else:
+        return "F"
 
 
 def group_students(db):
@@ -32,33 +38,24 @@ def group_students(db):
         print("<nothing to display>")
         return
 
-    # 평균 점수에 따라 학생들을 그룹화
     grouped_students = {"HD": [], "D": [], "C": [], "P": [], "F": []}
     for student in students:
-        average_mark = Subject.calculate_average_marks(student.subjects)
-        if average_mark >= 85:
-            grade = "HD"
-        elif average_mark >= 75:
-            grade = "D"
-        elif average_mark >= 65:
-            grade = "C"
-        elif average_mark >= 50:
-            grade = "P"
-        else:
-            grade = "F"
-
-        # 각 학생 객체에 평균 점수 저장
+        average_mark = round(Subject.calculate_average_marks(student.subjects), 2)
+        grade = calculate_grade(average_mark)
         student.average_mark = average_mark
-
-        # 해당 학점 그룹에 학생 추가
         grouped_students[grade].append(student)
 
-    # 그룹화된 학생들을 그룹 별로 한 번에 출력
     for grade, students in grouped_students.items():
-        if students:  # 학생이 있는 그룹만 출력
-            print(f"Group {grade}:")
-            for student in students:
-                print(f"- {student.name}, Average Mark: {student.average_mark}")
+        if students:
+            output = f"{grade} --> ["
+            output += ", ".join(
+                f"{student.name} :: {student.student_id} --> GRADE: {grade} - MARK: {student.average_mark}"
+                for student in students
+            )
+            output += "]"
+            print(output)
+        else:
+            print(f"{grade} --> []")
 
 
 def partition_students(db):
@@ -68,34 +65,43 @@ def partition_students(db):
         print("< Nothing to Display >")
         return
 
-    # Pass/Fail로 구분
-    pass_students = [
-        student
-        for student in students
-        if Subject.calculate_average_marks(student.subjects) >= 50
-    ]
-    fail_students = [
-        student
-        for student in students
-        if Subject.calculate_average_marks(student.subjects) < 50
-    ]
+    pass_students = []
+    fail_students = []
+    for student in students:
+        average_mark = Subject.calculate_average_marks(student.subjects)
+        grade = calculate_grade(average_mark)
+        student.average_mark = round(
+            average_mark, 2
+        )  # 평균 점수 소수점 둘째 자리까지 반올림
+        student.grade = grade  # 학생 객체에 등급 추가
 
-    # Pass/Fail로 출력
+        if grade in ["HD", "D", "C", "P"]:
+            pass_students.append(student)
+        else:
+            fail_students.append(student)
+
+    # 출력 구문
     if pass_students:
-        print("PASS Students:")
-        for student in pass_students:
-            average_mark = Subject.calculate_average_marks(student.subjects)
-            print(f"- {student.name}, Average Mark: {average_mark}")
+        pass_output = "PASS --> ["
+        pass_output += ", ".join(
+            f"{student.name} :: {student.student_id} --> GRADE: {student.grade} - MARK: {student.average_mark}"
+            for student in pass_students
+        )
+        pass_output += "]"
+        print(pass_output)
     else:
-        print("No pass students.")
+        print("PASS --> []")
 
     if fail_students:
-        print("FAIL Students:")
-        for student in fail_students:
-            average_mark = Subject.calculate_average_marks(student.subjects)
-            print(f"- {student.name}, Average Mark: {average_mark}")
+        fail_output = "FAIL --> ["
+        fail_output += ", ".join(
+            f"{student.name} :: {student.student_id} --> GRADE: {student.grade} - MARK: {student.average_mark}"
+            for student in fail_students
+        )
+        fail_output += "]"
+        print(fail_output)
     else:
-        print("No fail students.")
+        print("FAIL --> []")
 
 
 def remove_student(db):
