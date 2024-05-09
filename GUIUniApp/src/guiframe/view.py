@@ -182,7 +182,16 @@ class EnrolmentFrame(tk.Frame):
         self.delete_button.pack()
 
         self.update_subjects_list()  # 수정된 부분
-        
+   
+    # 과목 등록
+    def enrol_subject(self):
+        result = self.controller.add_subject(None)
+        if result:
+            self.update_subjects_list()
+            messagebox.showinfo("Enrolment Success", "Subject enrolled successfully")
+        else:
+            messagebox.showinfo("Enrolment Failed", "Only 4 subjects can be enrolled at a time")     
+    
     # 과목 리스트 업데이트
     def update_subjects_list(self):
         self.subjects_listbox.delete(0, tk.END)
@@ -192,8 +201,22 @@ class EnrolmentFrame(tk.Frame):
         
         if subject == None:
             self.subjects_listbox.insert(tk.END, "No enrolled subjects")
-            
     
-
-
-  
+    # 과목 삭제            
+    def delete_subject(self):
+        if not self.subjects_listbox.curselection():
+            return
+        
+        selected_index = self.subjects_listbox.curselection()[0]
+        selected_subject = self.subjects_listbox.get(selected_index)
+        subject_id = selected_subject.split(" -- ")[0].split("::")[1]
+        
+        confirm = messagebox.askyesno("Confirmation", "Are you sure you want to delete this subject?")
+        if confirm:
+            result = self.controller.remove_subject(subject_id)
+            if result:
+                self.subjects_listbox.delete(selected_index)
+                self.update_subjects_list()
+                messagebox.showinfo("Deletion", "Subject removed successfully")
+            else:
+                messagebox.showinfo("Deletion", "Failed to remove subject")

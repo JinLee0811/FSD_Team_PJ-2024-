@@ -10,6 +10,8 @@ from tkinter import messagebox
 # from utils import logger
 from guimodel.model import GUIUniAppModel
 from guiframe.view import LoginFrame, EnrolmentFrame
+import random
+from subject import Subject
 
 class GUIUniAppController:
     def __init__(self, master):
@@ -41,16 +43,9 @@ class GUIUniAppController:
             messagebox.showerror("Login Failed", "Incorrect Login credentials")
             return False
 
+    def add_subject(self, subject):
+            return self.model.add_subject(subject)
 
+    def remove_subject(self, subject_id):
+        return self.model.remove_subject(subject_id)
     
-    # def get_enrolled_subjects(self):
-    #     return self.model.get_subjects()
-    
-    # def add_subject(self, subject):
-    #     return self.model.add_subject(subject)
-        
-    # def remove_subject(self, subject_id):
-    #     if self.model.remove_subject(subject_id):
-    #         return "Subject removed successfully"
-    #     else:
-    #         return "Failed to remove subject"      
