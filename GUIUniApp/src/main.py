@@ -1,10 +1,10 @@
+import datetime
 import os
 import sys
 import tkinter as tk
-import datetime
 
 from guicontroller.controller import GUIUniAppController
-from guiframe.view import LoadingScreen 
+from guiframe.view import LoadingScreen
 
 # 현재 스크립트가 위치한 디렉토리 경로를 가져옵니다.
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -13,11 +13,12 @@ parent_dir = os.path.dirname(current_dir)
 # 부모 디렉토리를 sys.path에 추가합니다.
 sys.path.append(parent_dir)
 
+
 class MainApplication(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title('GUIUniApp')
-        self.geometry('375x612')
+        self.title("GUIUniApp")
+        self.geometry("375x612")
         self.resizable(False, False)
 
         # 로딩 화면 표시
@@ -29,7 +30,7 @@ class MainApplication(tk.Tk):
         self.loading_screen.destroy()  # 로딩 화면 제거
         self.controller = GUIUniAppController(self)
 
+
 if __name__ == "__main__":
     app = MainApplication()
     app.mainloop()
-    
