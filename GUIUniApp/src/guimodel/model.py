@@ -39,7 +39,9 @@ class GUIUniAppModel:
     
     def add_subject(self, subject):
         if self.logged_in_user:
-            return self.enroll_subject(self.logged_in_user)
+            if self.enroll_subject(self.logged_in_user):
+                self.database.update_student(self.logged_in_user)
+                return True
         return False
 
     def remove_subject(self, subject_id):
@@ -47,6 +49,9 @@ class GUIUniAppModel:
             subject_to_remove = next((s for s in self.logged_in_user.subjects if s.id == subject_id), None)
             if subject_to_remove:
                 self.logged_in_user.subjects.remove(subject_to_remove)
-                self.database.update_student(self.logged_in_user)  
+                self.database.update_student(self.logged_in_user)
                 return True
         return False
+    
+    def logout(self):
+        self.logged_in_user = None

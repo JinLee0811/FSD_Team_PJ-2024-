@@ -150,7 +150,6 @@ class LoginFrame(tk.Frame):
       
         print("Login method exited") 
 
-
 class EnrolmentFrame(tk.Frame):
     def __init__(self, master, controller):
         super().__init__(master)
@@ -180,6 +179,10 @@ class EnrolmentFrame(tk.Frame):
         # 과목 삭제 버튼
         self.delete_button = tk.Button(self, text="Delete Subject", command=self.delete_subject)
         self.delete_button.pack()
+
+        # 로그아웃 버튼
+        self.logout_button = tk.Button(self, text="Logout", command=self.logout)
+        self.logout_button.pack()
 
         self.update_subjects_list()  # 수정된 부분
    
@@ -220,3 +223,8 @@ class EnrolmentFrame(tk.Frame):
                 messagebox.showinfo("Deletion", "Subject removed successfully")
             else:
                 messagebox.showinfo("Deletion", "Failed to remove subject")
+               
+    def logout(self):
+        confirm = messagebox.askyesno("Logout", "Are you sure you want to logout?")
+        if confirm:
+            self.controller.logout()

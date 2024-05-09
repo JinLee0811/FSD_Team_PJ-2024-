@@ -49,3 +49,6 @@ class GUIUniAppController:
     def remove_subject(self, subject_id):
         return self.model.remove_subject(subject_id)
     
+    def logout(self):
+        self.model.logout()
+        self.show_login_frame()
