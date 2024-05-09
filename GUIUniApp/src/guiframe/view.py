@@ -1,8 +1,23 @@
 import os
+import sys
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 
+# 현재 작업 디렉토리 가져오기
+currentPath = os.getcwd()
+
+# rootDir 설정
+rootDir = currentPath.replace('GUIUniApp', '')
+
+# CLIUniApp 모델 디렉토리 경로 추가
+utilsPath = os.path.join(rootDir, 'CLIUniApp/src/utils/')
+sys.path.append(utilsPath)
+
+# 경로 확인을 위해 출력
+print(sys.path)
+
+import validator as val
 
 
 class LoadingScreen(tk.Frame):
@@ -95,16 +110,16 @@ class LoginFrame(tk.Frame):
                         'active_bg_color': '#0056b3',
                         'active_fg_color': 'white',
                         'hover_bg_color': '#0069d9',
-                        'hover_fg_color': '293e85'}
+                        'hover_fg_color': '#293e85'}
 
         self.login_button = tk.Button(button_frame, text="Login", command=self.login)
         self.login_button.pack(side=tk.LEFT, padx=(0, 10))
 
-        self.register_button = tk.Button(button_frame, text="Register", command=self.register)
-        self.register_button.pack(side=tk.RIGHT)
+        # self.register_button = tk.Button(button_frame, text="Register", command=self.register)
+        # self.register_button.pack(side=tk.RIGHT)
 
         # 버튼 스타일 적용
-        for button in [self.login_button, self.register_button]:
+        for button in [self.login_button]:
             button.configure(font=button_style['font'],
                             width=button_style['width'],
                             height=button_style['width'],
@@ -121,8 +136,13 @@ class LoginFrame(tk.Frame):
     def login(self):
         print("Login method entered")  # Debug print
         # logger.info("Login method entered")
+       
         email = self.email_entry.get()
         password = self.password_entry.get()
+    
+        print(email) 
+        print(password) 
+          
         if self.controller.authenticate(email, password):
             print("Authentication successful")  # Debug print
             self.controller.show_enrolment_frame()
@@ -133,64 +153,70 @@ class LoginFrame(tk.Frame):
         self.password_entry.delete(0, tk.END)
         print("Login method exited")  # Debug print
 
-    def register(self):
-        # logger.info("Register method entered")
-        self.controller.show_registration_frame()
+    # def register(self):
+    #     print("Register method entered") # Debug print
+    #     self.controller.show_registration_frame()
 
-class RegistrationFrame(tk.Frame):
-    def __init__(self, master, controller):
-        super().__init__(master)
-        self.controller = controller
-        self.configure_gui()
-        self.create_widgets()
-    def configure_gui(self):
-        self.pack(padx=20, pady=20)
+
+
+# class RegistrationFrame(tk.Frame):
+#     def __init__(self, master, controller):
+#         super().__init__(master)
+#         self.controller = controller
+#         self.configure_gui()
+#         self.create_widgets()
+#     def configure_gui(self):
+#         self.pack(padx=20, pady=20)
         
-    def create_widgets(self):
-        self.email_label = tk.Label(self, text="Email:")
-        self.email_entry = tk.Entry(self)
-        self.password_label = tk.Label(self, text="Password:")
-        self.password_entry = tk.Entry(self, show="*")
-        self.name_label = tk.Label(self, text="Name:")  # 새로 추가
-        self.name_entry = tk.Entry(self)  # 새로 추가
-        self.student_id_label = tk.Label(self, text="Student ID:")  # 새로 추가
-        self.student_id_entry = tk.Entry(self)  # 새로 추가
-        self.register_button = tk.Button(self, text="Register")
-        self.register_button.bind('<Button-1>', lambda event: self.register())
-        self.cancel_button = tk.Button(self, text="Cancel")
-        self.cancel_button.bind('<Button-1>', lambda event: self.cancel())
+#     def create_widgets(self):
+#         self.email_label = tk.Label(self, text="Email:")
+#         self.email_entry = tk.Entry(self)
+#         self.password_label = tk.Label(self, text="Password:")
+#         self.password_entry = tk.Entry(self, show="*")
+#         self.name_label = tk.Label(self, text="Name:")  
+#         self.name_entry = tk.Entry(self)  
+#         self.student_id_label = tk.Label(self, text="Student ID:") 
+#         self.student_id_entry = tk.Entry(self)  
+#         self.register_button = tk.Button(self, text="Register")
+#         self.register_button.bind('<Button-1>', lambda event: self.register())
+#         self.cancel_button = tk.Button(self, text="Cancel")
+#         self.cancel_button.bind('<Button-1>', lambda event: self.cancel())
 
-        # Layout management
-        self.email_label.grid(row=0, column=0, padx=5, pady=5, sticky='e')
-        self.email_entry.grid(row=0, column=1, padx=5, pady=5)
-        self.password_label.grid(row=1, column=0, padx=5, pady=5, sticky='e')
-        self.password_entry.grid(row=1, column=1, padx=5, pady=5)
-        self.name_label.grid(row=2, column=0, padx=5, pady=5, sticky='e')  # 새로 추가
-        self.name_entry.grid(row=2, column=1, padx=5, pady=5)  # 새로 추가
-        self.student_id_label.grid(row=3, column=0, padx=5, pady=5, sticky='e')  # 새로 추가
-        self.student_id_entry.grid(row=3, column=1, padx=5, pady=5)  # 새로 추가
-        self.register_button.grid(row=4, column=0, padx=5, pady=5)
-        self.cancel_button.grid(row=4, column=1, padx=5, pady=5)
+#         # Layout management
+#         self.email_label.grid(row=0, column=0, padx=5, pady=5, sticky='e')
+#         self.email_entry.grid(row=0, column=1, padx=5, pady=5)
+#         self.password_label.grid(row=1, column=0, padx=5, pady=5, sticky='e')
+#         self.password_entry.grid(row=1, column=1, padx=5, pady=5)
+#         self.name_label.grid(row=2, column=0, padx=5, pady=5, sticky='e')  
+#         self.name_entry.grid(row=2, column=1, padx=5, pady=5)  
+#         self.student_id_label.grid(row=3, column=0, padx=5, pady=5, sticky='e') 
+#         self.student_id_entry.grid(row=3, column=1, padx=5, pady=5)  
+#         self.register_button.grid(row=4, column=0, padx=5, pady=5)
+#         self.cancel_button.grid(row=4, column=1, padx=5, pady=5)
 
-    def register(self):
-        email = self.email_entry.get()
-        password = self.password_entry.get()
-        name = self.name_entry.get()
-        student_id = self.student_id_entry.get()
-        success, message = self.controller.register(email, password, name, student_id)
-        if success:
-            messagebox.showinfo("Registration Successful", message)
-            self.controller.show_login_frame()
-        else:
-            messagebox.showerror("Registration Failed", message)
-        self.email_entry.delete(0, tk.END)
-        self.password_entry.delete(0, tk.END)
-        self.name_entry.delete(0, tk.END)
-        self.student_id_entry.delete(0, tk.END)
+#     def register(self):
+#         email = self.email_entry.get()
+#         password = self.password_entry.get()
+#         name = self.name_entry.get()
+#         student_id = self.student_id_entry.get()
 
-    def cancel(self):
-        """Handles the cancel action to return to the login screen."""
-        self.controller.show_login_frame()
+#         # 컨트롤러를 통해 등록 로직 호출
+#         message = self.controller.register_student(email, password, name, student_id)
+#         if message == "Registration successful":
+#             messagebox.showinfo("Success", "Registration successful")
+#         else:
+#             messagebox.showerror("Error", message)
+
+#         # 입력 필드 초기화
+#         self.email_entry.delete(0, tk.END)
+#         self.password_entry.delete(0, tk.END)
+#         self.name_entry.delete(0, tk.END)
+#         self.student_id_entry.delete(0, tk.END)
+        
+        
+#     def cancel(self):
+#         """Handles the cancel action to return to the login screen."""
+#         self.controller.show_login_frame()
 
 
 class EnrolmentFrame(tk.Frame):
@@ -199,35 +225,47 @@ class EnrolmentFrame(tk.Frame):
         self.controller = controller
         self.configure_gui()
         self.create_widgets()
-        self.update_subjects()
 
     def configure_gui(self):
         self.pack(padx=20, pady=20)
 
     def create_widgets(self):
-        self.subject_entry = tk.Entry(self)
-        self.enrol_button = tk.Button(self, text="Enrol", command=self.enrol)
-        self.remove_button = tk.Button(self, text="Remove", command=self.remove_subject)
-        self.subjects_listbox = tk.Listbox(self, width=30, height=10)
+        # 로그인한 학생 정보 표시
+        student = self.controller.logged_in_user
+        student_info = f"Student: {student.name}, ID: {student.student_id}"
+        self.info_label = tk.Label(self, text=student_info)
+        self.info_label.pack()
 
-        self.subject_entry.pack(pady=(20, 0))
-        self.enrol_button.pack(pady=(10, 0))
-        self.remove_button.pack(pady=(10, 0))
-        self.subjects_listbox.pack(pady=(20, 0), fill=tk.BOTH, expand=True)
+        # 과목 등록 버튼
+        self.enrol_button = tk.Button(self, text="Enrol Subject", command=self.enrol_subject)
+        self.enrol_button.pack()
 
-    def enrol(self):
-        subject = self.subject_entry.get()
-        if subject and self.controller.add_subject(subject):
-            self.update_subjects()
-        self.subject_entry.delete(0, tk.END)
+        # 과목 리스트 박스
+        self.subjects_listbox = tk.Listbox(self, width=50, height=10)
+        self.subjects_listbox.pack(pady=(20, 0))
 
-    def remove_subject(self):
-        selected_subject = self.subjects_listbox.get(tk.ACTIVE)
-        if selected_subject and self.controller.remove_subject(selected_subject):
-            self.update_subjects()
+        # 과목 삭제 버튼
+        self.delete_button = tk.Button(self, text="Delete Subject", command=self.delete_subject)
+        self.delete_button.pack()
 
-    def update_subjects(self):
-        subjects = self.controller.get_subjects()
+        self.update_subjects()
+
+    def enrol_subject(self):
+        try:
+            result = self.controller.enrol_subject()
+            self.update_subjects_list()
+            messagebox.showinfo("Success", result)
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+
+    def delete_subject(self):
+        subject_id = self.subjects_listbox.get(self.subjects_listbox.curselection())
+        result = self.controller.remove_subject(subject_id)
+        self.update_subjects_list()
+        messagebox.showinfo("Notice", result)
+
+    def update_subjects_list(self):
         self.subjects_listbox.delete(0, tk.END)
+        subjects = self.controller.get_enrolled_subjects()
         for subject in subjects:
-            self.subjects_listbox.insert(tk.END, subject)
+            self.subjects_listbox.insert(tk.END, f"{subject.id} - {subject.name}")

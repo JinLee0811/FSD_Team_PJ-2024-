@@ -1,5 +1,3 @@
-
-
 import os
 import sys
 
@@ -7,10 +5,10 @@ import sys
 currentPath = os.getcwd()
 
 # rootDir 설정
-rootDir = currentPath.replace('GUIUniApp', '')
+rootDir = currentPath.replace("GUIUniApp", "")
 
 # 모델 디렉토리 경로 추가
-modelsPath = os.path.join(rootDir, 'CLIUniApp/src/models/')
+modelsPath = os.path.join(rootDir, "CLIUniApp/src/models/")
 sys.path.append(modelsPath)
 
 # 경로 확인을 위해 출력
@@ -18,6 +16,7 @@ print(sys.path)
 
 # database 모듈 임포트 시도
 import database
+import student
 
 
 class GUIUniAppModel:
@@ -33,7 +32,9 @@ class GUIUniAppModel:
         return False
 
     def register_student(self, email, password, name, student_id):
-        if not self.database.get_student_by_email(email) and not self.database.get_student_by_id(student_id):
+        if not self.database.get_student_by_email(
+            email
+        ) and not self.database.get_student_by_id(student_id):
             new_student = Student(email, password, name, student_id)
             self.database.add_student(new_student)
             return True, "Registration successful."

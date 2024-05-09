@@ -7,9 +7,10 @@ sys.path.append(parent_dir)
 
 import tkinter as tk
 from tkinter import messagebox
-# from utils import logger
+
+from guiframe.view import EnrolmentFrame, LoginFrame
 from guimodel.model import GUIUniAppModel
-from views.view import LoginFrame, EnrolmentFrame, RegistrationFrame
+
 
 class GUIUniAppController:
     def __init__(self, master):
@@ -24,17 +25,16 @@ class GUIUniAppController:
     def show_enrolment_frame(self):
         self.switch_frame(EnrolmentFrame)
 
-    # def show_registration_frame(self):
-    #     self.switch_frame(RegistrationFrame)
-
     def switch_frame(self, frame_class):
         if self.current_frame is not None:
             self.current_frame.destroy()
         self.current_frame = frame_class(self.master, self)
         self.current_frame.pack(fill=tk.BOTH, expand=True)
-        self.current_frame.bind('<Button-1>', lambda event: self.current_frame.focus_set())
+        self.current_frame.bind(
+            "<Button-1>", lambda event: self.current_frame.focus_set()
+        )
         self.current_frame.focus_set()
-        
+
     def authenticate(self, email, password):
         if self.model.authenticate(email, password):
             messagebox.showinfo("Login Successful", "You have successfully logged in!")
