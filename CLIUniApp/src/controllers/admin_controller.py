@@ -45,8 +45,9 @@ def group_students(db):
         student.average_mark = average_mark
         grouped_students[grade].append(student)
 
+    # 모든 등급 그룹에 대해 결과 출력
     for grade, students in grouped_students.items():
-        if students:
+        if students:  # 등급 그룹에 학생이 있는 경우에만 출력
             output = f"{grade} --> ["
             output += ", ".join(
                 f"{student.name} :: {student.student_id} --> GRADE: {grade} - MARK: {student.average_mark}"
@@ -54,8 +55,6 @@ def group_students(db):
             )
             output += "]"
             print(output)
-        else:
-            print(f"{grade} --> []")
 
 
 def partition_students(db):

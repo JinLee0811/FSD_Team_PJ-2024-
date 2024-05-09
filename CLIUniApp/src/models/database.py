@@ -1,16 +1,17 @@
+import fcntl
 import os
-import sys
-
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
-
 import pickle
+import sys
 import threading
 
 from colorama import Fore, init
 
 init(autoreset=True)
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+print("경로:", parent_dir)
 
 
 class SingletonMeta(type):
@@ -28,18 +29,40 @@ class SingletonMeta(type):
 class Database(metaclass=SingletonMeta):
     def __init__(self):
         self.filename = os.path.join(parent_dir, "data", "students.data")
+        self.file_lock = threading.Lock()
         self.students = self.load_students()
 
     def load_students(self):
         try:
-            with open(self.filename, "rb") as f:
-                return pickle.load(f)
-        except (FileNotFoundError, EOFError, pickle.UnpicklingError):
+            with self.file_lock, open(self.filename, "rb") as f:
+                fcntl.flock(f, fcntl.LOCK_EX)
+                # Python 2에서 생성된 파일을 Python 3에서 읽을 경우 추가 옵션
+                if sys.version_info[0] > 2:
+                    data = pickle.load(f, encoding="latin1", errors="ignore")
+                else:
+                    data = pickle.load(f)
+                fcntl.flock(f, fcntl.LOCK_UN)
+                return data
+        except FileNotFoundError:
+            print("Student data file not found.")
+            return []
+        except (EOFError, pickle.UnpicklingError) as e:
+            print(f"Error reading student data: {e}")
+            return []
+        except Exception as e:
+            print(f"Unexpected error: {e}")
             return []
 
     def save_students(self):
-        with open(self.filename, "wb") as f:
-            pickle.dump(self.students, f)
+        try:
+            with self.file_lock, open(self.filename, "wb") as f:
+                fcntl.flock(f, fcntl.LOCK_EX)
+                # 호환성을 유지하기 위해 protocol=2 사용
+                pickle.dump(self.students, f, protocol=2)
+                fcntl.flock(f, fcntl.LOCK_UN)
+            print("Data saved successfully.")
+        except Exception as e:
+            print(f"Error saving data: {e}")
 
     def get_student_by_email(self, email):
         return next(
@@ -59,27 +82,24 @@ class Database(metaclass=SingletonMeta):
             self.students.append(student)
             self.save_students()
         else:
-            print(Fore.BLUE + f"Student {student.email} already exists")
+            print(Fore.BLUE + f"Student {student.email} already exists.")
 
     def update_student(self, student):
-        found = False
-        for idx, s in enumerate(self.students):
+        for i, s in enumerate(self.students):
             if s.student_id == student.student_id:
-                self.students[idx] = student
-                found = True
-                break
-        if found:
-            self.save_students()
-        else:
-            print("Student not found.")
+                self.students[i] = student
+                self.save_students()
+                return True
+        print("Student not found.")
+        return False
 
     def remove_student_by_id(self, student_id):
         original_len = len(self.students)
         self.students = [s for s in self.students if s.student_id != student_id]
         if len(self.students) < original_len:
             self.save_students()
-            return True  # 학생이 성공적으로 제거되었을떄
-        return False  # 학생이 목록에 없어 제거되지 않았을떄
+            return True
+        return False
 
     def get_all_students(self):
         return self.students

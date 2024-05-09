@@ -5,7 +5,6 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
-import random
 import tkinter as tk
 from tkinter import messagebox
 
@@ -13,7 +12,6 @@ from guiframe.view import EnrolmentFrame, LoginFrame
 
 # from utils import logger
 from guimodel.model import GUIUniAppModel
-from subject import Subject
 
 
 class GUIUniAppController:
