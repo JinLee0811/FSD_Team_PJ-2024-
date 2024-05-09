@@ -31,20 +31,26 @@ class GUIUniAppController:
         self.current_frame.pack(fill=tk.BOTH, expand=True)
         self.current_frame.bind('<Button-1>', lambda event: self.current_frame.focus_set())
         self.current_frame.focus_set()
-        
+            
     def authenticate(self, email, password):
         if self.model.authenticate(email, password):
             messagebox.showinfo("Login Successful", "You have successfully logged in!")
-            # logger.info("GUIUniAppController initialized")
-            self.show_enrolment_frame()
+            self.logged_in_user = self.model.logged_in_user 
+            return True
         else:
-            messagebox.showerror("Login Failed", "Incorrect credentials")
+            messagebox.showerror("Login Failed", "Incorrect Login credentials")
+            return False
 
-    # def register(self, email, password, name, student_id):
-    #     success, message = self.model.register_student(email, password, name, student_id)
-    #     if success:
-    #         messagebox.showinfo("Registration Successful", message)
-    #         self.show_login_frame()
+
+    
+    # def get_enrolled_subjects(self):
+    #     return self.model.get_subjects()
+    
+    # def add_subject(self, subject):
+    #     return self.model.add_subject(subject)
+        
+    # def remove_subject(self, subject_id):
+    #     if self.model.remove_subject(subject_id):
+    #         return "Subject removed successfully"
     #     else:
-    #         messagebox.showerror("Registration Failed", message)
-    #     return success, message
+    #         return "Failed to remove subject"      

@@ -1,5 +1,6 @@
 import os
 import sys
+import random
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
@@ -13,7 +14,6 @@ rootDir = currentPath.replace('GUIUniApp', '')
 # CLIUniApp 모델 디렉토리 경로 추가
 utilsPath = os.path.join(rootDir, 'CLIUniApp/src/utils/')
 sys.path.append(utilsPath)
-
 # 경로 확인을 위해 출력
 print(sys.path)
 
@@ -115,9 +115,6 @@ class LoginFrame(tk.Frame):
         self.login_button = tk.Button(button_frame, text="Login", command=self.login)
         self.login_button.pack(side=tk.LEFT, padx=(0, 10))
 
-        # self.register_button = tk.Button(button_frame, text="Register", command=self.register)
-        # self.register_button.pack(side=tk.RIGHT)
-
         # 버튼 스타일 적용
         for button in [self.login_button]:
             button.configure(font=button_style['font'],
@@ -132,91 +129,26 @@ class LoginFrame(tk.Frame):
             
             button.bind("<Enter>", lambda event, btn=button: btn.configure(bg=button_style['hover_bg_color'], fg=button_style['hover_fg_color']))
             button.bind("<Leave>", lambda event, btn=button: btn.configure(bg=button_style['bg_color'], fg=button_style['fg_color']))
-                    
+    
+    # 로그인 버튼 눌렀을때 실행되는 login 함수                
     def login(self):
-        print("Login method entered")  # Debug print
-        # logger.info("Login method entered")
-       
+        print("Login method entered")  
+
         email = self.email_entry.get()
         password = self.password_entry.get()
-    
+
         print(email) 
         print(password) 
           
-        if self.controller.authenticate(email, password):
-            print("Authentication successful")  # Debug print
+        if self.controller.authenticate(email, password) == True:
+            print("Authentication successful") 
             self.controller.show_enrolment_frame()
         else:
-            print("Authentication failed - showing message")  # Debug print
-            messagebox.showerror("Login Failed", "Incorrect credentials")
-        self.email_entry.delete(0, tk.END)
-        self.password_entry.delete(0, tk.END)
-        print("Login method exited")  # Debug print
-
-    # def register(self):
-    #     print("Register method entered") # Debug print
-    #     self.controller.show_registration_frame()
-
-
-
-# class RegistrationFrame(tk.Frame):
-#     def __init__(self, master, controller):
-#         super().__init__(master)
-#         self.controller = controller
-#         self.configure_gui()
-#         self.create_widgets()
-#     def configure_gui(self):
-#         self.pack(padx=20, pady=20)
-        
-#     def create_widgets(self):
-#         self.email_label = tk.Label(self, text="Email:")
-#         self.email_entry = tk.Entry(self)
-#         self.password_label = tk.Label(self, text="Password:")
-#         self.password_entry = tk.Entry(self, show="*")
-#         self.name_label = tk.Label(self, text="Name:")  
-#         self.name_entry = tk.Entry(self)  
-#         self.student_id_label = tk.Label(self, text="Student ID:") 
-#         self.student_id_entry = tk.Entry(self)  
-#         self.register_button = tk.Button(self, text="Register")
-#         self.register_button.bind('<Button-1>', lambda event: self.register())
-#         self.cancel_button = tk.Button(self, text="Cancel")
-#         self.cancel_button.bind('<Button-1>', lambda event: self.cancel())
-
-#         # Layout management
-#         self.email_label.grid(row=0, column=0, padx=5, pady=5, sticky='e')
-#         self.email_entry.grid(row=0, column=1, padx=5, pady=5)
-#         self.password_label.grid(row=1, column=0, padx=5, pady=5, sticky='e')
-#         self.password_entry.grid(row=1, column=1, padx=5, pady=5)
-#         self.name_label.grid(row=2, column=0, padx=5, pady=5, sticky='e')  
-#         self.name_entry.grid(row=2, column=1, padx=5, pady=5)  
-#         self.student_id_label.grid(row=3, column=0, padx=5, pady=5, sticky='e') 
-#         self.student_id_entry.grid(row=3, column=1, padx=5, pady=5)  
-#         self.register_button.grid(row=4, column=0, padx=5, pady=5)
-#         self.cancel_button.grid(row=4, column=1, padx=5, pady=5)
-
-#     def register(self):
-#         email = self.email_entry.get()
-#         password = self.password_entry.get()
-#         name = self.name_entry.get()
-#         student_id = self.student_id_entry.get()
-
-#         # 컨트롤러를 통해 등록 로직 호출
-#         message = self.controller.register_student(email, password, name, student_id)
-#         if message == "Registration successful":
-#             messagebox.showinfo("Success", "Registration successful")
-#         else:
-#             messagebox.showerror("Error", message)
-
-#         # 입력 필드 초기화
-#         self.email_entry.delete(0, tk.END)
-#         self.password_entry.delete(0, tk.END)
-#         self.name_entry.delete(0, tk.END)
-#         self.student_id_entry.delete(0, tk.END)
-        
-        
-#     def cancel(self):
-#         """Handles the cancel action to return to the login screen."""
-#         self.controller.show_login_frame()
+            print("Authentication failed - showing message") 
+            self.email_entry.delete(0, tk.END)
+            self.password_entry.delete(0, tk.END)
+      
+        print("Login method exited") 
 
 
 class EnrolmentFrame(tk.Frame):
@@ -228,10 +160,10 @@ class EnrolmentFrame(tk.Frame):
 
     def configure_gui(self):
         self.pack(padx=20, pady=20)
-
+        
     def create_widgets(self):
         # 로그인한 학생 정보 표시
-        student = self.controller.logged_in_user
+        student = self.controller.model.logged_in_user
         student_info = f"Student: {student.name}, ID: {student.student_id}"
         self.info_label = tk.Label(self, text=student_info)
         self.info_label.pack()
@@ -243,29 +175,25 @@ class EnrolmentFrame(tk.Frame):
         # 과목 리스트 박스
         self.subjects_listbox = tk.Listbox(self, width=50, height=10)
         self.subjects_listbox.pack(pady=(20, 0))
+        self.subjects_listbox.insert(tk.END, "No enrolled subjects")
 
         # 과목 삭제 버튼
         self.delete_button = tk.Button(self, text="Delete Subject", command=self.delete_subject)
         self.delete_button.pack()
 
-        self.update_subjects()
-
-    def enrol_subject(self):
-        try:
-            result = self.controller.enrol_subject()
-            self.update_subjects_list()
-            messagebox.showinfo("Success", result)
-        except Exception as e:
-            messagebox.showerror("Error", str(e))
-
-    def delete_subject(self):
-        subject_id = self.subjects_listbox.get(self.subjects_listbox.curselection())
-        result = self.controller.remove_subject(subject_id)
-        self.update_subjects_list()
-        messagebox.showinfo("Notice", result)
-
+        self.update_subjects_list()  # 수정된 부분
+        
+    # 과목 리스트 업데이트
     def update_subjects_list(self):
         self.subjects_listbox.delete(0, tk.END)
-        subjects = self.controller.get_enrolled_subjects()
-        for subject in subjects:
-            self.subjects_listbox.insert(tk.END, f"{subject.id} - {subject.name}")
+        student = self.controller.model.logged_in_user
+        for subject in student.subjects:
+            self.subjects_listbox.insert(tk.END, f"Subject::{subject.id} -- Mark = {subject.mark} -- Grade = {subject.grade}")
+        
+        if subject == None:
+            self.subjects_listbox.insert(tk.END, "No enrolled subjects")
+            
+    
+
+
+  

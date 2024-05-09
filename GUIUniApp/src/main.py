@@ -4,7 +4,7 @@ import tkinter as tk
 import datetime
 
 from guicontroller.controller import GUIUniAppController
-from guiframe.view import LoadingScreen  # LoadingScreen 추가
+from guiframe.view import LoadingScreen 
 
 # 현재 스크립트가 위치한 디렉토리 경로를 가져옵니다.
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -12,9 +12,6 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 # 부모 디렉토리를 sys.path에 추가합니다.
 sys.path.append(parent_dir)
-
-current_time = datetime.datetime.now().strftime("%H:%M:%S")
-current_date = datetime.datetime.now().strftime("%Y-%m-%d")
 
 class MainApplication(tk.Tk):
     def __init__(self):
@@ -30,13 +27,9 @@ class MainApplication(tk.Tk):
 
     def show_login_frame(self):
         self.loading_screen.destroy()  # 로딩 화면 제거
-        # logger.info(f"Loading Screen is destroyed {current_date} at {current_time}")
         self.controller = GUIUniAppController(self)
 
 if __name__ == "__main__":
     app = MainApplication()
- 
-    # logger.info(f"Start GUIUniApp application on {current_date} at {current_time}")
-
     app.mainloop()
     
