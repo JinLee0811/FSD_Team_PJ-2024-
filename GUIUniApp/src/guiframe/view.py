@@ -297,8 +297,10 @@ class EnrolmentFrame(tk.Frame):
                 messagebox.showinfo("Deletion", "Subject removed successfully")
             else:
                 messagebox.showinfo("Deletion", "Failed to remove subject")
-
+    
+    
     def logout(self):
         confirm = messagebox.askyesno("Logout", "Are you sure you want to logout?")
         if confirm:
             self.controller.logout()
+            

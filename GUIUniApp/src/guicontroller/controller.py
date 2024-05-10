@@ -54,4 +54,11 @@ class GUIUniAppController:
 
     def logout(self):
         self.model.logout()
-        self.show_login_frame()
+        self.clear_all_data()
+
+    def clear_all_data(self):
+        self.model.clear_all_data()
+        if self.current_frame:
+            self.current_frame.destroy()
+        self.current_frame = None
+

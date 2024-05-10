@@ -77,4 +77,7 @@ class GUIUniAppModel:
         return False
 
     def logout(self):
+     self.logged_in_user = None
+
+    def clear_all_data(self):
         self.logged_in_user = None
