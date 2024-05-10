@@ -11,18 +11,6 @@ from tkinter import messagebox
 
 from PIL import Image, ImageTk
 
-# # 현재 작업 디렉토리 가져오기
-# currentPath = os.getcwd()
-
-# # rootDir 설정
-# rootDir = currentPath.replace("GUIUniApp", "")
-
-# # CLIUniApp 모델 디렉토리 경로 추가
-# utilsPath = os.path.join(rootDir, "CLIUniApp/src/utils/")
-# sys.path.append(utilsPath)
-# # 경로 확인을 위해 출력
-# print(sys.path)
-
 
 class LoadingScreen(tk.Frame):
     def __init__(self, master):

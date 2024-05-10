@@ -7,8 +7,6 @@ currentPath = os.getcwd()
 rootDir = currentPath.replace("GUIUniApp", "")
 modelsPath = os.path.join(rootDir, "CLIUniApp/")
 sys.path.append(modelsPath)
-print("gui 경로확인")
-print(modelsPath)
 
 from models.database import *
 from models.student import *
@@ -52,12 +50,6 @@ class GUIUniAppModel:
         print(f"new subject{new_subject}")
         print(f"Enrolling in Subject - {new_id}")
         print(f"You are now enrolled in {len(student.subjects)} out of 4 subjects.")
-
-        # print(f"Showing {len(student.subjects)} subjects.")
-        # for subject in student.subjects:
-        #     print(
-        #         f"[ Subject::{subject.id} -- Mark = {subject.mark} -- Grade = {subject.grade} ]"
-        #     )
 
         return True
 

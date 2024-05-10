@@ -31,12 +31,18 @@ Welcome to the University Interactive System repository, featuring both command-
 
 #### CLIUniApp
 To run the CLI application, execute the following command in your terminal:
-- cd /CLIUniApp/Src python main.py
+- cd /CLIUniApp/python main.py
 
 
-<!-- #### GUIUniApp
+#### GUIUniApp
 To launch the GUI application, run the following command:
-- python guiuniapp.py -->
+- cd /GUIUniApp/python main.py
+
+### pip install list
+- pip install list
+
+colorama, PIL, tkinter, 
+
 
 
 ## Usage
@@ -56,8 +62,6 @@ Contributions are welcome and make the open-source community thrive. To contribu
 ## Contact
 
 Jin Lee - [jeongjin.lee@student.uts.edu.au](mailto:jeongjin.lee@student.uts.edu.au)
-
+Irene Kim - []
 Project Link: [https://github.com/JinLee0811/FSD_Team_PJ_2024](https://github.com/JinLee0811/FSD_Team_PJ_2024)
 
-
-- pip install 
