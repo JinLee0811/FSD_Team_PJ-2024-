@@ -17,3 +17,6 @@ GUIUniApp/src/utils/__pycache__/logger.cpython-312.pyc
 GUIUniApp/src/views/uts_logo.jpg
 GUIUniApp/src/views/uts_logo.png
 GUIUniApp/src/views/__pycache__/view.cpython-312.pyc
+.Ds_store
+.env
+.gitignore
