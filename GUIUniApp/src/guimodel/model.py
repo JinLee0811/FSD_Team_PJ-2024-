@@ -45,20 +45,20 @@ class GUIUniAppModel:
         new_subject = self.subject(new_id)
         new_subject.assign_random_mark()
         student.subjects.append(new_subject)
-        self.database.update_student(self.logged_in_user)
 
+        print(f"new subject{new_subject}")
         print(f"Enrolling in Subject - {new_id}")
         print(f"You are now enrolled in {len(student.subjects)} out of 4 subjects.")
 
-        print(f"Showing {len(student.subjects)} subjects.")
-        for subject in student.subjects:
-            print(
-                f"[ Subject::{subject.id} -- Mark = {subject.mark} -- Grade = {subject.grade} ]"
-            )
+        # print(f"Showing {len(student.subjects)} subjects.")
+        # for subject in student.subjects:
+        #     print(
+        #         f"[ Subject::{subject.id} -- Mark = {subject.mark} -- Grade = {subject.grade} ]"
+        #     )
 
         return True
 
-    def add_subject(self, subject):
+    def add_subject(self):
         if self.logged_in_user:
             if self.enroll_subject(self.logged_in_user):
                 self.database.update_student(self.logged_in_user)

@@ -253,9 +253,10 @@ class EnrolmentFrame(tk.Frame):
 
         self.update_subjects_list()  # 수정된 부분
 
+   
     # 과목 등록
     def enrol_subject(self):
-        result = self.controller.add_subject(None)
+        result = self.controller.add_subject()
         if result:
             self.update_subjects_list()
             messagebox.showinfo("Enrolment Success", "Subject enrolled successfully")
@@ -263,7 +264,7 @@ class EnrolmentFrame(tk.Frame):
             messagebox.showinfo(
                 "Enrolment Failed", "Only 4 subjects can be enrolled at a time"
             )
-
+            
     # 과목 리스트 업데이트
     def update_subjects_list(self):
         self.subjects_listbox.delete(0, tk.END)
@@ -303,4 +304,4 @@ class EnrolmentFrame(tk.Frame):
         confirm = messagebox.askyesno("Logout", "Are you sure you want to logout?")
         if confirm:
             self.controller.logout()
-            
+            self.controller.show_login_frame()

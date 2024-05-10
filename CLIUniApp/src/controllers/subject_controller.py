@@ -27,6 +27,7 @@ def enroll_subject(student, db):
         Fore.YELLOW
         + f"You are now enrolled in {len(student.subjects)} out of 4 subjects."
     )
+    print(student)
     return True
 
 
