@@ -46,8 +46,8 @@ class GUIUniAppController:
             messagebox.showerror("Login Failed", "Incorrect Login credentials")
             return False
 
-    def add_subject(self, subject):
-        return self.model.add_subject(subject)
+    def add_subject(self):
+        return self.model.add_subject()
 
     def remove_subject(self, subject_id):
         return self.model.remove_subject(subject_id)

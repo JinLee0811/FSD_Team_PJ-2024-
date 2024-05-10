@@ -255,7 +255,7 @@ class EnrolmentFrame(tk.Frame):
 
     # 과목 등록
     def enrol_subject(self):
-        result = self.controller.add_subject(None)
+        result = self.controller.add_subject()
         if result:
             self.update_subjects_list()
             messagebox.showinfo("Enrolment Success", "Subject enrolled successfully")
