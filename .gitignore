@@ -1,16 +1,16 @@
-# 환경 설정 파일
+# Configuration files
 .env
 
-# MacOS 시스템 파일
+# MacOS system files
 .DS_Store
 
-# Python 바이트코드
+# Python bytecode
 __pycache__/
 *.pyc
 
-# 특정 로그 파일
+# Specific log files
 logs/
 *.log
 
-# 개발 도구 설정
+# Development tool settings
 .vscode/
