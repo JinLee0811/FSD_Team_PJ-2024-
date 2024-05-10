@@ -11,11 +11,15 @@ sys.path.append(modelsPath)
 import database
 import subject
 
+db = database.Database()
+
 
 class GUIUniAppModel:
+
     def __init__(self):
-        self.database = database.Database()
         self.logged_in_user = None
+        self.database = db
+        self.subject = subject.Subject
 
     # 로그인 인증
     def authenticate(self, email, password):
@@ -29,14 +33,28 @@ class GUIUniAppModel:
         if len(student.subjects) >= 4:
             return False
 
-        while True:
-            subject_id = str(random.randint(1, 999)).zfill(3)
-            if not any(s.id == subject_id for s in student.subjects):
-                break
+        subject_ids = {s.id for s in student.subjects}
+        new_id = random.choice(
+            [
+                str(i).zfill(3)
+                for i in range(1, 1000)
+                if str(i).zfill(3) not in subject_ids
+            ]
+        )
 
-        new_subject = subject.Subject(subject_id)
+        new_subject = self.subject(new_id)
         new_subject.assign_random_mark()
         student.subjects.append(new_subject)
+        self.database.update_student(self.logged_in_user)
+
+        print(f"Enrolling in Subject - {new_id}")
+        print(f"You are now enrolled in {len(student.subjects)} out of 4 subjects.")
+
+        print(f"Showing {len(student.subjects)} subjects.")
+        for subject in student.subjects:
+            print(
+                f"[ Subject::{subject.id} -- Mark = {subject.mark} -- Grade = {subject.grade} ]"
+            )
 
         return True
 
