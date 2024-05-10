@@ -1,1 +1,1 @@
-colorama, python-dotenv, 
+colorama, python-dotenv, PIL, tkinter
