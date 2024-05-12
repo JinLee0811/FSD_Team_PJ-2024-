@@ -107,33 +107,3 @@ class Database(metaclass=SingletonMeta):
     def clear_all(self):
         self.students = []
         self.save_students()
-
-    def remove_student_by_email(self, email):
-        original_len = len(self.students)
-        self.students = [s for s in self.students if s.email != email]
-        if len(self.students) < original_len:
-            self.save_students()
-
-    def print_students(self):
-        """저장된 모든 학생 정보를 출력합니다."""
-        if not self.students:
-            print("No students loaded.")
-            return
-
-        for student in self.students:
-            print(f"Student ID: {student.student_id}, Name: {student.name}")
-            print("Subjects:")
-            for subj in student.subjects:
-                subject_id = getattr(subj, "id", "Unknown ID")
-                subject_mark = getattr(subj, "mark", "Unknown Mark")
-                subject_grade = getattr(subj, "grade", "Unknown Grade")
-                print(
-                    f"  Subject ID: {subject_id}, Mark: {subject_mark}, Grade: {subject_grade}"
-                )
-            print("--------")
-
-
-# 사용 예제
-if __name__ == "__main__":
-    db = Database()
-    db.print_students()
