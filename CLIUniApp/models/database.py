@@ -13,8 +13,6 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
 
-# single thread에서만 동작하는 코드
-# 여러 곳에서 데이터 간섭 못하고 하나의 데이터만 사용 가능
 class SingletonMeta(type):
     _instances = {}
     _lock: threading.Lock = threading.Lock()
@@ -35,7 +33,7 @@ class Database(metaclass=SingletonMeta):
 
     def load_students(self):
         try:
-            print(f"Trying to load from: {self.filename}")  # 파일 경로 출력 추가
+            print(f"Trying to load from: {self.filename}")
             with self.file_lock, open(self.filename, "rb") as f:
                 fcntl.flock(f, fcntl.LOCK_EX)
                 # Python 2에서 생성된 파일을 Python 3에서 읽을 경우 추가 옵션
