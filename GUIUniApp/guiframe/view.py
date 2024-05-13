@@ -179,7 +179,7 @@ class EnrolmentFrame(tk.Frame):
         main_frame.pack(fill=tk.BOTH, expand=True)
         
         # Label_Enrolment page
-        self.logo_label = tk.Label(main_frame, text="Enrolment Subject", image=logo_img, compound=tk.LEFT, padx=10, fg='#000000', font="Arial 26 bold", bg='white')
+        self.logo_label = tk.Label(main_frame, text="Subject Enrolment", image=logo_img, compound=tk.LEFT, padx=10, fg='#000000', font="Arial 26 bold", bg='white')
         self.logo_label.image = logo_img
         self.logo_label.pack(pady=(80, 50))
         
@@ -192,7 +192,7 @@ class EnrolmentFrame(tk.Frame):
         # Subjects Listbox
         self.subjects_listbox = tk.Listbox(main_frame, width=50, height=10)
         self.subjects_listbox.pack(padx=20, pady=20, ipadx=5)
-        self.subjects_listbox.insert(tk.END, " No enrolled subjects")
+        self.subjects_listbox.insert(tk.END, " No enroled subjects")
 
         # button_enrol
         self.enrol_button = tk.Button(main_frame, 
@@ -237,10 +237,10 @@ class EnrolmentFrame(tk.Frame):
         result = self.controller.add_subject()
         if result:
             self.update_subjects_list()
-            messagebox.showinfo("Enrolment Success", "Subject enrolled successfully")
+            messagebox.showinfo("Enrolment Success", "Subject enroled successfully")
         else:
             messagebox.showinfo(
-                "Enrolment Failed", "Only 4 subjects can be enrolled"
+                "Enrolment Failed", "Only 4 subjects can be enroled"
             )
 
     # Update Subject list method
@@ -254,7 +254,7 @@ class EnrolmentFrame(tk.Frame):
                     f" Subject::{subject.id} -- Mark = {subject.mark} -- Grade = {subject.grade}",
                 )
         else:  # 학생의 과목 리스트가 비어있는 경우
-            self.subjects_listbox.insert(tk.END, " No enrolled subjects")
+            self.subjects_listbox.insert(tk.END, " No enroled subjects")
 
     # Delete Subject method
     def delete_subject(self):
@@ -265,9 +265,7 @@ class EnrolmentFrame(tk.Frame):
         selected_subject = self.subjects_listbox.get(selected_index)
         subject_id = selected_subject.split(" -- ")[0].split("::")[1]
 
-        confirm = messagebox.askyesno(
-            "Confirmation", "Are you sure you want to delete this subject?"
-        )
+        confirm = messagebox.askyesno("Confirmation", "Are you sure you want to delete this subject?")
         if confirm:
             result = self.controller.remove_subject(subject_id)
             if result:
