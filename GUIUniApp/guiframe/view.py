@@ -1,13 +1,13 @@
-# Primarily responsible for creating and arrangin UI elements
-
 import os
 import tkinter as tk
 from tkinter import messagebox
+
 from PIL import Image, ImageTk
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 black_logo_path = os.path.join(current_dir, "uts_b_logo.jpeg")
 white_logo_path = os.path.join(current_dir, "uts_w_logo.png")
+
 
 class LoadingScreen(tk.Frame):
     def __init__(self, master):
@@ -45,11 +45,11 @@ class LoginFrame(tk.Frame):
         self.pack(expand=True)
 
     def create_widgets(self):
-       
+
         # Logo image
         logo_path = white_logo_path
         logo_image = Image.open(logo_path)
-        logo_image = logo_image.resize((50, 50), Image.Resampling.LANCZOS)  
+        logo_image = logo_image.resize((50, 50), Image.Resampling.LANCZOS)
         logo_img = ImageTk.PhotoImage(logo_image)
 
         # Create main frame
@@ -122,17 +122,19 @@ class LoginFrame(tk.Frame):
         self.password_entry.focus()
 
         # button_login
-        self.lg_button = tk.Button(main_frame, 
-                              text="Login", 
-                              font="Arial 14 bold", 
-                              width=15, 
-                              height=2, 
-                              relief=tk.GROOVE, 
-                              borderwidth=5,
-                              highlightbackground='#ffffff',
-                              bg="#000000", 
-                              fg="#FF0080",
-                              command=self.login)
+        self.lg_button = tk.Button(
+            main_frame,
+            text="Login",
+            font="Arial 14 bold",
+            width=15,
+            height=2,
+            relief=tk.GROOVE,
+            borderwidth=5,
+            highlightbackground="#ffffff",
+            bg="#000000",
+            fg="#FF0080",
+            command=self.login,
+        )
         self.lg_button.place(x=110, y=380)
 
     # Login method
@@ -165,28 +167,39 @@ class EnrolmentFrame(tk.Frame):
 
     def configure_gui(self):
         self.pack(expand=True)
-        
+
     def create_widgets(self):
-        
-         # Logo image
+
+        # Logo image
         logo_path = white_logo_path
         logo_image = Image.open(logo_path)
-        logo_image = logo_image.resize((50, 50), Image.Resampling.LANCZOS)  
+        logo_image = logo_image.resize((50, 50), Image.Resampling.LANCZOS)
         logo_img = ImageTk.PhotoImage(logo_image)
 
         # Create main frame
-        main_frame = tk.Frame(self, bg='white')
+        main_frame = tk.Frame(self, bg="white")
         main_frame.pack(fill=tk.BOTH, expand=True)
-        
+
         # Label_Enrolment page
-        self.logo_label = tk.Label(main_frame, text="Subject Enrolment", image=logo_img, compound=tk.LEFT, padx=10, fg='#000000', font="Arial 26 bold", bg='white')
+        self.logo_label = tk.Label(
+            main_frame,
+            text="Subject Enrolment",
+            image=logo_img,
+            compound=tk.LEFT,
+            padx=10,
+            fg="#000000",
+            font="Arial 26 bold",
+            bg="white",
+        )
         self.logo_label.image = logo_img
         self.logo_label.pack(pady=(80, 50))
-        
+
         # Student Info
         student = self.controller.model.logged_in_user
         student_info = f"Student: {student.name}_{student.student_id}"
-        self.info_label = tk.Label(main_frame, text=student_info, bg='white', font="Arial 14 bold")
+        self.info_label = tk.Label(
+            main_frame, text=student_info, bg="white", font="Arial 14 bold"
+        )
         self.info_label.pack(anchor=tk.W, padx=20)
 
         # Subjects Listbox
@@ -195,42 +208,48 @@ class EnrolmentFrame(tk.Frame):
         self.subjects_listbox.insert(tk.END, " No enroled subjects")
 
         # button_enrol
-        self.enrol_button = tk.Button(main_frame, 
-                              text="Enrol Subject", 
-                              font="Arial 12 bold", 
-                              relief=tk.GROOVE, 
-                              width=15, 
-                              height=2, 
-                              highlightbackground='#ffffff',
-                              bg="#9eada2", 
-                              fg="#000000",
-                              command=self.enrol_subject)
+        self.enrol_button = tk.Button(
+            main_frame,
+            text="Enrol Subject",
+            font="Arial 12 bold",
+            relief=tk.GROOVE,
+            width=15,
+            height=2,
+            highlightbackground="#ffffff",
+            bg="#9eada2",
+            fg="#000000",
+            command=self.enrol_subject,
+        )
         self.enrol_button.pack(side=tk.LEFT, padx=(20, 5), anchor=tk.NW)
 
         # button_delete
-        self.delete_button = tk.Button(main_frame, 
-                              text="Delete Subject", 
-                              font="Arial 12 bold", 
-                              relief=tk.GROOVE, 
-                              width=15, 
-                              height=2, 
-                              highlightbackground='#ffffff',
-                              bg="#9eada2", 
-                              fg="#000000",
-                              command=self.delete_subject)
+        self.delete_button = tk.Button(
+            main_frame,
+            text="Delete Subject",
+            font="Arial 12 bold",
+            relief=tk.GROOVE,
+            width=15,
+            height=2,
+            highlightbackground="#ffffff",
+            bg="#9eada2",
+            fg="#000000",
+            command=self.delete_subject,
+        )
         self.delete_button.pack(side=tk.RIGHT, padx=(5, 20), anchor=tk.NE)
 
         # button_logout
-        self.logout_button = tk.Button(main_frame, 
-                              text="Logout", 
-                              font="Arial 12 bold", 
-                              relief=tk.GROOVE, 
-                              bg="#9eada2", 
-                              fg="#FF0080",
-                              highlightbackground='#ffffff',    
-                              command=self.logout)
+        self.logout_button = tk.Button(
+            main_frame,
+            text="Logout",
+            font="Arial 12 bold",
+            relief=tk.GROOVE,
+            bg="#9eada2",
+            fg="#FF0080",
+            highlightbackground="#ffffff",
+            command=self.logout,
+        )
         self.logout_button.place(x=280, y=560)
-        self.update_subjects_list()  
+        self.update_subjects_list()
 
     # Enrol Subject method
     def enrol_subject(self):
@@ -239,21 +258,19 @@ class EnrolmentFrame(tk.Frame):
             self.update_subjects_list()
             messagebox.showinfo("Enrolment Success", "Subject enroled successfully")
         else:
-            messagebox.showinfo(
-                "Enrolment Failed", "Only 4 subjects can be enroled"
-            )
+            messagebox.showinfo("Enrolment Failed", "Only 4 subjects can be enroled")
 
     # Update Subject list method
     def update_subjects_list(self):
         self.subjects_listbox.delete(0, tk.END)
         student = self.controller.model.logged_in_user
-        if student.subjects: 
+        if student.subjects:
             for subject in student.subjects:
                 self.subjects_listbox.insert(
                     tk.END,
                     f" Subject::{subject.id} -- Mark = {subject.mark} -- Grade = {subject.grade}",
                 )
-        else: 
+        else:
             self.subjects_listbox.insert(tk.END, " No enroled subjects")
 
     # Delete Subject method
@@ -265,7 +282,9 @@ class EnrolmentFrame(tk.Frame):
         selected_subject = self.subjects_listbox.get(selected_index)
         subject_id = selected_subject.split(" -- ")[0].split("::")[1]
 
-        confirm = messagebox.askyesno("Confirmation", "Are you sure you want to delete this subject?")
+        confirm = messagebox.askyesno(
+            "Confirmation", "Are you sure you want to delete this subject?"
+        )
         if confirm:
             result = self.controller.remove_subject(subject_id)
             if result:

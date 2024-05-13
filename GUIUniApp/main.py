@@ -1,9 +1,6 @@
-# Entry point of the application
-
 import os
 import sys
 
-# Get and add parent directory paths to the system path
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
