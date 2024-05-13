@@ -60,7 +60,6 @@ class Database(metaclass=SingletonMeta):
                 # 호환성을 유지하기 위해 protocol=2 사용
                 pickle.dump(self.students, f, protocol=2)
                 fcntl.flock(f, fcntl.LOCK_UN)
-            print("Data saved successfully.")
         except Exception as e:
             print(f"Error saving data: {e}")
 
