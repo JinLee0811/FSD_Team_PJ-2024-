@@ -9,8 +9,6 @@ currentPath = os.getcwd()
 rootDir = currentPath.replace("GUIUniApp", "")
 modelsPath = os.path.join(rootDir, "CLIUniApp/")
 sys.path.append(modelsPath)
-print("Check root directory")
-print(modelsPath)
 
 
 # Import classes from CLIUniApp (models.database, models.student, and models.subject)
@@ -38,7 +36,7 @@ class GUIUniAppModel:
     def enroll_subject(self, student):
         if len(student.subjects) >= 4:
             return False
-        
+
         subject_ids = {s.id for s in student.subjects}
         new_id = random.choice(
             [
@@ -52,7 +50,7 @@ class GUIUniAppModel:
         new_subject = self.subject(new_id)
         new_subject.assign_random_mark()
         student.subjects.append(new_subject)
-        
+
         # Print for debugging
         print(f"new subject{new_subject}")
         print(f"Enrolling in Subject - {new_id}")
@@ -70,7 +68,9 @@ class GUIUniAppModel:
         # Check if a user is logged in
         if self.logged_in_user:
             # Find the subject to remove from the student's list of subjects
-            subject_to_remove = next((s for s in self.logged_in_user.subjects if s.id == subject_id), None)
+            subject_to_remove = next(
+                (s for s in self.logged_in_user.subjects if s.id == subject_id), None
+            )
             if subject_to_remove:
                 self.logged_in_user.subjects.remove(subject_to_remove)
                 self.database.update_student(self.logged_in_user)
