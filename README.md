@@ -60,7 +60,7 @@ Contributions are welcome and make the open-source community thrive. To contribu
 
 ## Contact
 
-Jin Lee - [jeongjin.lee@student.uts.edu.au](mailto:jeongjin.lee@student.uts.edu.au)
-Irene Kim - [jeongjin.lee@student.uts.edu.au](mailto:jeongjin.lee@student.uts.edu.au)
+- Jin Lee - [jeongjin.lee@student.uts.edu.au](mailto:jeongjin.lee@student.uts.edu.au)
+- Irene Kim - [seoyoon.kim@student.uts.edu.au](mailto:seoyoon.kim@student.uts.edu.au)
 
 Project Link: [https://github.com/JinLee0811/FSD_Team_PJ_2024](https://github.com/JinLee0811/FSD_Team_PJ_2024)
