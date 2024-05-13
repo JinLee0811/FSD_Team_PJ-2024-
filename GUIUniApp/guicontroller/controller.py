@@ -1,3 +1,6 @@
+#Controller acts as an intermediary between the view and the model. 
+#It is responsible for handling user input and updating the view based on the model's data.
+
 import os
 import sys
 import tkinter as tk
@@ -15,7 +18,7 @@ from guimodel.model import GUIUniAppModel
 class GUIUniAppController:
     def __init__(self, master):
         self.master = master
-        self.model = GUIUniAppModel() # Create an instance of GUIUniAppModel
+        self.model = GUIUniAppModel() 
         self.current_frame = None
         self.show_login_frame() # Show the login frame initially
 

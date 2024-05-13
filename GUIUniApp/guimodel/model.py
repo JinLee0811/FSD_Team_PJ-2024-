@@ -1,3 +1,5 @@
+# Model class enclasulates the application's logic and database.
+
 import os
 import random
 import sys
@@ -27,20 +29,16 @@ class GUIUniAppModel:
         self.subject = Subject
 
     def authenticate(self, email, password):
-        # Get the student with the provided email from the database
         student = self.database.get_student_by_email(email)
-        # Check if the student exists and the password is correct
         if student and student.password == password:
             self.logged_in_user = student
             return True
         return False
 
     def enroll_subject(self, student):
-        # Check if the student exists and the password is correct
         if len(student.subjects) >= 4:
             return False
         
-        # Generate a unique subject ID
         subject_ids = {s.id for s in student.subjects}
         new_id = random.choice(
             [
@@ -80,5 +78,4 @@ class GUIUniAppModel:
         return False
 
     def logout(self):
-        # Set the logged-in user to None
         self.logged_in_user = None

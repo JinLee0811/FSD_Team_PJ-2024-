@@ -1,3 +1,5 @@
+# Primarily responsible for creating and arrangin UI elements
+
 import os
 import tkinter as tk
 from tkinter import messagebox
@@ -14,7 +16,6 @@ class LoadingScreen(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-
         logo_path = black_logo_path
         logo_image = Image.open(logo_path)
         logo_image = logo_image.resize((180, 180), Image.Resampling.LANCZOS)
@@ -34,7 +35,6 @@ class LoadingScreen(tk.Frame):
 
 
 class LoginFrame(tk.Frame):
-
     def __init__(self, master, controller):
         super().__init__(master)
         self.controller = controller
@@ -247,13 +247,13 @@ class EnrolmentFrame(tk.Frame):
     def update_subjects_list(self):
         self.subjects_listbox.delete(0, tk.END)
         student = self.controller.model.logged_in_user
-        if student.subjects:  # 학생의 과목 리스트가 비어있지 않은 경우
+        if student.subjects: 
             for subject in student.subjects:
                 self.subjects_listbox.insert(
                     tk.END,
                     f" Subject::{subject.id} -- Mark = {subject.mark} -- Grade = {subject.grade}",
                 )
-        else:  # 학생의 과목 리스트가 비어있는 경우
+        else: 
             self.subjects_listbox.insert(tk.END, " No enroled subjects")
 
     # Delete Subject method
