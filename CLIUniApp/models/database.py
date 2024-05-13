@@ -13,6 +13,8 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
 
+# single thread에서만 동작하는 코드
+# 여러 곳에서 데이터 간섭 못하고 하나의 데이터만 사용 가능
 class SingletonMeta(type):
     _instances = {}
     _lock: threading.Lock = threading.Lock()

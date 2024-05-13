@@ -1,5 +1,6 @@
 import re
 
+
 def validate_email(email):
     # Email regex should ensure that the dot ( . ), the (@ ) and the ( university.com ) are present
     # ex) -> jin.lee@university.com

@@ -58,7 +58,7 @@ Contributions are welcome and make the open-source community thrive. To contribu
 4. Push to the Branch (`git push origin your branch name`)
 5. Open a Pull Request
 
-## Contact
+## Contactg
 
 - Jin Lee - [jeongjin.lee@student.uts.edu.au](mailto:jeongjin.lee@student.uts.edu.au)
 - Irene Kim - [seoyoon.kim@student.uts.edu.au](mailto:seoyoon.kim@student.uts.edu.au)

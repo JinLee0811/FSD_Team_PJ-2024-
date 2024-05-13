@@ -11,9 +11,9 @@ def main_menu():
         choice = input(Fore.BLUE + "\n(A)dmin\n(S)tudent\n(X)Exit\n> ").upper()
 
         if choice == "A":
-            admin_system.admin_menu()  # admin_system 모듈에서 admin_menu 함수 호출
+            admin_system.admin_menu()
         elif choice == "S":
-            student_system.student_menu()  # student_system 모듈에서 student_menu 함수 호출
+            student_system.student_menu()
         elif choice == "X":
             print(Fore.YELLOW + "Thank you for using CLIUniApp.")
             break
